@@ -1,2 +1,1 @@
-sample text document
-hello world
+IF ( a ) { }
