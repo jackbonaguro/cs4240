@@ -24,6 +24,6 @@ public class Token{
 	}
 
 	public String toString() {
-		return "Token(" + this.name + "," + this.type + ")";
+		return "Token(\"" + this.name + "\"," + this.type + ")";
 	}
 }
