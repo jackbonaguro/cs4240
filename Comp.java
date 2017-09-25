@@ -11,12 +11,10 @@ public class Comp {
 		String current = "";
 		Token prev = new Token("",null);
 		String c = "";
-		int i = 0;
 		boolean proceed = true;
 		boolean substring = false;
 
 		while(sc.hasNext()) {
-			i++;
 
 			if (proceed) {
 				c = sc.next();
@@ -33,9 +31,8 @@ public class Comp {
 			prev.setName(current);
 			current = current + c;
 
-			//System.out.println("C: " + c);
-			//System.out.println("Current: " + current);
-			//System.out.println("i: " + i);
+			System.out.println("C: " + c);
+			System.out.println("Current: " + current);
 
 			substring = false;	//We can discard current if it won't lead to a
 								//valid token
@@ -67,7 +64,7 @@ public class Comp {
 					//This is where you'd throw an error: No valid substring
 					// can be made so we reset current
 					System.out.println("\nError parsing symbol: "
-						+ prev.getName() + "\n");
+						+ prev.getName() + "");
 
 					current = "";
 					prev.setName("");

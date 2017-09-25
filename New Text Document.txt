@@ -1,1 +1,2 @@
-IF ( A ) {} := :)
+LET
+ TYPE ArrayInt = ARRAY [100] OF int; /*Declare ArrayInt as a new type */
