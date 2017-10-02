@@ -44,22 +44,49 @@ public class DFABuilder {
             int num_dfa_state = 0;
             while(scanner.hasNext()) {
                 String state = scanner.nextLine();
+                //initialize all of our dfa states
                 states.add(new DfaState(num_dfa_state++));
             }
 
-            System.out.println("states:" + states.toString());
+            //System.out.println("states:" + states.toString());
+
+            //restart scanner so we can add transitions to our dfa states
+            scanner = new Scanner(new File(FILENAME));
+            scanner.nextLine(); //skip over our character categories
+
+            while(scanner.hasNext()) {
+                String transitionRow = scanner.nextLine();
+                rowReader = new Scanner(transitionRow).useDelimiter(",");
+
+                DfaState currentState = states.get(rowReader.nextInt());
+                int column = 0;
+
+                while(rowReader.hasNext()) {
+                    String transitionState = rowReader.next();
+                    DfaState nextState;
+                    if(transitionState.equals("E") || transitionState.equals("E ")) { //need to fix that lol
+                        nextState = new DfaState(-1);
+                    } else {
+                        nextState = states.get(Integer.parseInt(transitionState));
+                    }
 
 
+                    currentState.addTransition(characters.get(column++), nextState);
+                }
+
+                graph.add(currentState);
+                
+
+            }
+
+            System.out.println("Graph:"+graph.toString());
+
+            rowReader.close();
             scanner.close();
 
         } catch(FileNotFoundException e) {
             System.out.println("Could not find " + FILENAME + ".");
         }
-
-
-
-
-
 
         return graph;
     }
