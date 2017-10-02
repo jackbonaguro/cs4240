@@ -1,4 +1,7 @@
-public TigerScannerDFA {
+import java.util.Map;
+import java.util.HashMap;
+
+public class TigerScannerDFA {
 
 	public static class DFAKey {
 		public int state;
@@ -21,7 +24,7 @@ public TigerScannerDFA {
 			this.valid = v;
 			this.error = e;
 			this.whitespace = w;
-			this.comment = c;
+			//this.comment = c;
 		}
 	}
 
@@ -29,7 +32,7 @@ public TigerScannerDFA {
 	public Map<Integer, TokenType> tokens = new HashMap<Integer, TokenType>();
 
 	public TigerScannerDFA() {
-		this.map.put(new DFAKey(0,a), new DFAValue(1,false,false,false,false));
+		this.map.put(new DFAKey(0,"a"), new DFAValue(1,false,false,false,false));
 
 		this.tokens.put(new Integer(2), TokenType.COMMA);
 	}

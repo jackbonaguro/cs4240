@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.Scanner;
+import java.io.EOFException;
 
 public class TigerScanner {
 	private TigerScannerDFA dfa;
@@ -16,7 +17,11 @@ public class TigerScanner {
 
 	public TigerScanner(String filename) {
 		this.dfa = new TigerScannerDFA();
-		this.sc = new Scanner(new File(filename));
+		try {
+			this.sc = new Scanner(new File(filename));
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 			this.sc.useDelimiter("");
 
 		this.currentState = 0;
@@ -26,12 +31,12 @@ public class TigerScanner {
 		this.prefix = "";
 
 		this.valid = false;
-		if(this.hasNext()){
+		if(this.sc.hasNext()){
 			this.c = sc.next();
 		}
 	}
 
-	public Token next() throws RuntimeException {
+	public Token next() throws EOFException, Exception {
 		/* Four Cases for loop:
 			I. invalid->invalid: return nothing, continue invalid token
 			II. invalid->valid: throw invalid token, start valid token
@@ -45,7 +50,7 @@ public class TigerScanner {
 		currentState = 0;
 		currentName = "";
 
-		while (1) {
+		while (true) {
 			if(this.sc.hasNext()) {
 
 				if(c.equals("\n")) {
@@ -54,11 +59,11 @@ public class TigerScanner {
 				}
 
 				TigerScannerDFA.DFAKey key = new TigerScannerDFA
-						.DFAKEY(currentState, c);
+						.DFAKey(currentState, c);
 				TigerScannerDFA.DFAValue val = this.dfa.map.get(key);
 
 				if (!valid) {
-					if (val == null) {
+					if (val == null || !val.valid) {
 						//Case I
 						currentName += c;
 					} else {
@@ -74,7 +79,7 @@ public class TigerScanner {
 						//Since it throws, call ends here
 					}
 				} else {
-					if (val != null) {
+					if (val != null || val.valid) {
 						//Case III
 						currentName += c;
 					} else {
@@ -88,7 +93,7 @@ public class TigerScanner {
 							//No entry in dfa.tokens indicates a pass -
 							//whitespace, comment, etc.
 							//Thus we just get the next token.
-							return this.next;
+							return this.next();
 						}
 						Token t = new Token(currentName, tt);
 						return t;
@@ -99,7 +104,8 @@ public class TigerScanner {
 				c = this.sc.next();
 
 			} else {
-				throw new Exception("End of File");
+				throw new EOFException();
 			}
 		}
+	}
 }
