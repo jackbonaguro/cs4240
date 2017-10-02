@@ -21,7 +21,8 @@ public class DFABuilder {
     }
 
     public List<DfaState> buildDFA() {
-        List<DfaState> graph = new ArrayList<DfaState>();
+        List<DfaState> graph = new ArrayList<>();
+        List<DfaState> states = new ArrayList<>();
         List<CharCat> characters;
         //System.out.println(url.getFile());
         try {
@@ -32,11 +33,21 @@ public class DFABuilder {
             String firstRow = scanner.nextLine();
             Scanner rowReader = new Scanner(firstRow).useDelimiter(",");
             characters = new ArrayList<>();
-
+            rowReader.next(); // not sure why I need to do this
             while(rowReader.hasNext()) {
                 String columnCategory = rowReader.next();
+                //System.out.println("columnCategory:" + columnCategory);
                 characters.add(CharCat.valueOf(columnCategory));
+                //System.out.println("Characters: " + characters.toString());
             }
+
+            int num_dfa_state = 0;
+            while(scanner.hasNext()) {
+                String state = scanner.nextLine();
+                states.add(new DfaState(num_dfa_state++));
+            }
+
+            System.out.println("states:" + states.toString());
 
 
             scanner.close();

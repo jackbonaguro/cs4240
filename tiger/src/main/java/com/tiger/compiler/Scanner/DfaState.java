@@ -27,4 +27,8 @@ public class DfaState {
 		return state;
 	}
 
+	public String toString() {
+		return "DFA State: " + this.state;
+	}
+
 }
