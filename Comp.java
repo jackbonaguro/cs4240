@@ -14,7 +14,7 @@ public class Comp {
 		boolean proceed = true;
 		boolean substring = false;
 
-		while(sc.hasNext()) {
+		while(this.hasNext()) {
 
 			if (proceed) {
 				c = sc.next();
@@ -86,5 +86,9 @@ public class Comp {
 			//Now check for id/literal types
 		}
 		System.out.println(prev);
+	}
+
+	public boolean hasNext() {
+		return this.sc.hasNext();
 	}
 }
