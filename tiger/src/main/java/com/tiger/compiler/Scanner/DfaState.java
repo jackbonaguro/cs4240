@@ -27,8 +27,12 @@ public class DfaState {
 		return state;
 	}
 
+	public boolean isErrorState() {
+		return this.state == -1;
+	}
+
 	public String toString() {
-		return "DFA State: " + this.state;
+		return "DFA State: " + this.state; 
 	}
 
 }
