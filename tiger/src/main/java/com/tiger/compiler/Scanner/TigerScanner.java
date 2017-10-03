@@ -23,12 +23,18 @@ public class TigerScanner {
 	//because we need character stream we use a file reader
 	private FileReader filereader;
 	private int currentState;
+	private int line;
+	private int column;
+	private int curr_pos;
 
 	public TigerScanner(String filename, String dfa_excel) {
 		System.out.println("TigerScanner constructor");
 		this.builder = new DFABuilder(dfa_excel);
 		this.transitions = this.builder.buildDFA();
 		this.charStream = new ArrayList<>();
+		this.line = 1;
+		this.column = 0;
+		this.curr_pos = 0;
 
 		this.currentState = 0;
 
@@ -54,31 +60,61 @@ public class TigerScanner {
 
 	public TokenTuple next() throws RuntimeException {
 
-		//System.out.println("TRANSITIONS: " + this.transitions.toString());
 
 		String currentString = "";
 		DfaState curr_state = transitions.get(0);
-		DfaState last_final;
+		DfaState last_state = transitions.get(0);
 		int input_pos_last_final = 0;
-		int curr_pos = 0;
 		
-		//System.out.println("This is the scanner next method.");
+		
 
-		System.out.println(this.charStream.toString());
+		//System.out.println(this.charStream.toString());
 
 		while(!curr_state.isErrorState()) {
 			char character = this.charStream.get(curr_pos++);
+			if(character == '\n') {
+				this.line++;			
+			}
+
 			currentString += character;
+			System.out.println("curr_pos:" + (curr_pos-1) + "\tcurrentString:" + currentString);
 			CharCat category = CharCat.classOf(character);
-			//System.out.println("currentString:" + currentString);
-			System.out.println("category:" + category.toString());
-			System.out.println("curr_state:" + curr_state.next(category).toString());
+			column++;
+			
+
+			System.out.println("category:" + category.toString() + "\tcurr_state:" + curr_state.toString());
+			// System.out.println("currentString:" + currentString);
+			// System.out.println("curr_state:" + curr_state.next(category).toString());
+			
+			last_state = curr_state;
 			curr_state = curr_state.next(category);
 		}
 
+		//at this point, we have a valid token one character previous
+		column--;
+		curr_pos--;
 
+		String validString = currentString.substring(0, currentString.length() - 1);
+		char delete = currentString.charAt(currentString.length() - 1); 
 
-		return null;
+		System.out.println("validString: " + validString + "\ndelete: " + delete);
 
+		//what token do we have now?
+		Token token = Token.classOf(last_state, validString);
+
+		//we can either have a valid token, whitespace, a comment, or the dfa is not a final state!
+		if(token == Token.WHITESPACE || token == Token.COMMENT) {
+			System.out.println("Token recognized was whitespace so return next token. curr_pos:" + curr_pos);
+			return next();
+		} 
+
+		if(token == Token.ERROR) {
+			//throw exception, print out column, line, etc.
+			//curr_pos++; //skip the deleted character
+			return next();
+		}
+
+		TokenTuple return_token = new TokenTuple(validString, token);
+		return return_token;
 	}
 }

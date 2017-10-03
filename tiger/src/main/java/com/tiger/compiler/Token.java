@@ -11,19 +11,30 @@ public enum Token{
 
 	public String label;
 
-	private Token classOf(DfaState state, String str) {
+	public static Token classOf(DfaState state, String str) {
 		int stateNum = state.getId();
 
 		switch(stateNum) {
 			case 1:
 				return PERIOD;
 			case 27:
-				switch(str) {
-					case 'let':
-						return LET;
-				}
+				return classOfIdentifier(str);
+			case 31:
+				return WHITESPACE;
 			default:
 				return ERROR;
 		}
 	}
+
+	public static Token classOfIdentifier(String identifier) {
+		switch(identifier) {
+			case "let":
+				return LET;
+			case "type":
+				return TYPE;
+			default:
+				return ID;
+		}
+	}
+
 }
