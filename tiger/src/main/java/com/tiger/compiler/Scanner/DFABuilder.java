@@ -79,7 +79,7 @@ public class DFABuilder {
 
             }
 
-            System.out.println("Graph:"+graph.toString());
+            //System.out.println("Graph:"+graph.toString());
 
             rowReader.close();
             scanner.close();

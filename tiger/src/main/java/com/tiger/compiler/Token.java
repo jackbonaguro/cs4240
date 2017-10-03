@@ -1,31 +1,56 @@
 package com.tiger.compiler;
 
-public class Token{
-	private String name;
-	private TokenType type;
+public enum Token{
+	COMMA(","),
+	COLON(":"),
+	SEMI(";"),
+	LPAREN("("),
+	RPAREN(")"),
+	LBRACK("["),
+	RBRACK("]"),
+	LBRACE("{"),
+	RBRACE("}"),
+	PERIOD("."),
+	PLUS("+"),
+	MINUS("-"),
+	MULT("*"),
+	DIV("/"),
+	EQ("="),
+	NEQ("!="),
+	LESSER("<"),
+	GREATER(">"),
+	LESSEREQ("<="),
+	GREATEREQ(">="),
+	AND("&"),
+	OR("|"),
+	ASSIGN(":="),
+	ARRAY("ARRAY"),
+	RECORD("RECORD"),
+	BREAK("BREAK"),
+	DO("D"),
+	ELSE("ELSE"),
+	END("END"),
+	FOR("FOR"),
+	FUNC("FUNC"),
+	IF("IF"),
+	IN("IN"),
+	LET("LET"),
+	OF("OF"),
+	THEN("THEN"),
+	TO("TO"),
+	TYPE("TYPE"),
+	VAR("VAR"),
+	WHILE("WHILE"),
+	ENDIF("ENDIF"),
+	BEGIN("BEGIN"),
+	ENDDO("ENDDO"),
+	ID(""),
+	INTLIT(""),
+	FLOATLIT("");
 
-	public Token(String name, TokenType type) {
-		this.name = name;
-		this.type = type;
-	}
+	public String label;
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setType(TokenType type) {
-		this.type = type;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public TokenType getType() {
-		return this.type;
-	}
-
-	public String toString() {
-		return "Token(\"" + this.name + "\"," + this.type + ")";
+	private Token(String label) {
+		this.label = label;
 	}
 }

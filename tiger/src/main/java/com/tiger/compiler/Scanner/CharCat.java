@@ -28,7 +28,7 @@ public enum CharCat {
 	WHITESPACE,
 	OTHER;
 
-	public CharCat classOf(char c) {
+	public static CharCat classOf(char c) {
 		if(Character.isWhitespace(c)) {
 			return WHITESPACE;
 		} else if(Character.isLetter(c)) {
