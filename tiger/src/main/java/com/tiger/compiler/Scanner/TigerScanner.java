@@ -47,6 +47,8 @@ public class TigerScanner {
 				charStream.add(character);
 			}
 
+			charStream.add('/0');
+
 			filereader.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("Tiger scanner could not find the file.");
