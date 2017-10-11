@@ -47,7 +47,7 @@ public class TigerScanner {
 				charStream.add(character);
 			}
 
-			charStream.add('/0');
+			charStream.add('\0');
 
 			filereader.close();
 		} catch (FileNotFoundException e) {
@@ -69,10 +69,13 @@ public class TigerScanner {
 		int input_pos_last_final = 0;
 		
 		
-
 		//System.out.println(this.charStream.toString());
 
 		while(!curr_state.isErrorState()) {
+			if(this.charStream.get(curr_pos) == '\0') {
+			    return new TokenTuple("EOF", Token.EOF); 
+			}
+
 			char character = this.charStream.get(curr_pos++);
 			if(character == '\n') {
 				this.line++;			
