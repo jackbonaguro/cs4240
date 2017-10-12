@@ -27,9 +27,9 @@ public class TigerScanner {
 	private int column;
 	private int curr_pos;
 
-	public TigerScanner(String filename, String dfa_excel) {
+	public TigerScanner(String filename) {
 		System.out.println("TigerScanner constructor");
-		this.builder = new DFABuilder(dfa_excel);
+		this.builder = new DFABuilder();
 		this.transitions = this.builder.buildDFA();
 		this.charStream = new ArrayList<>();
 		this.line = 1;

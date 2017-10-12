@@ -12,8 +12,8 @@ public class Comp {
 		System.out.println("Hello world!");
 
         String filepath = args[0];
-        String dfa_excel = args[1];
-        TigerScanner scanner = new TigerScanner(filepath, dfa_excel);
+        //String dfa_excel = args[1];
+        TigerScanner scanner = new TigerScanner(filepath);
         TigerParser parser = new TigerParser(scanner);
         parser.parse();
     }

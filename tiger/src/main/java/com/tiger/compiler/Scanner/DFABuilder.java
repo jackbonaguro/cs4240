@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import java.net.URL;
 import java.io.File;
 
 import com.tiger.compiler.scanner.DfaState;
@@ -13,11 +12,10 @@ import com.tiger.compiler.scanner.CharCat;
 
 
 public class DFABuilder {
-    public String FILENAME;
-    public URL url = DFABuilder.class.getResource("/dfa_table.csv");
+    public String FILENAME = ("dfa_table.csv");
 
-    public DFABuilder(String dfa_excel) {
-        this.FILENAME = dfa_excel;
+    public DFABuilder() {
+       // refactor this
     }
 
     public List<DfaState> buildDFA() {
