@@ -1,8 +1,0 @@
-com\tiger\compiler\TokenTuple.class
-com\tiger\compiler\scanner\DFABuilder.class
-com\tiger\compiler\scanner\TigerScanner.class
-com\tiger\compiler\Token.class
-com\tiger\compiler\parser\TigerParser.class
-com\tiger\compiler\scanner\CharCat.class
-com\tiger\compiler\scanner\DfaState.class
-com\tiger\compiler\Comp.class
