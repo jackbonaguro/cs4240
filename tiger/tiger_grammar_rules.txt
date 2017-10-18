@@ -182,4 +182,20 @@ Left-factoring
 <stat-seq-tail>			-> <stat-seq>
 				-> NULL
 
+<stat> 				-> id <stat0>
+<stat>				-> if <expr> then <stat-seq> <stat-seq-if-endif-tail>
+<stat>				-> while <expr> do <stat-seq> enddo;
+<stat>				-> for id := <expr> to <expr> do <stat-seq> enddo;
+<stat> 				-> break;
+<stat>				-> return <expr>;
+<stat>				-> let <declaration-segment> in <stat-seq> end
+
+<stat-seq-if-endif-tail>	-> endif
+				-> else <stat-seq> endif;
+
+<stat0>				-> <lvalue-tail> <stat1>
+				-> (<expr-list>);
+
+<stat1>				-> := <expr>;
+				-> id (<expr-list>);
 		
