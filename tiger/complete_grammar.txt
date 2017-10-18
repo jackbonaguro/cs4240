@@ -133,8 +133,6 @@
 <const> 			-> INTLIT
 <const>				-> FLOATLIT
 
-<binary-operator>		-> + | - | * | / | = | <> | < | > | <= | >= | & | |
-
 <opt-prefix>			-> <lvalue> :=
 <opt-prefix> 			-> NULL
 
