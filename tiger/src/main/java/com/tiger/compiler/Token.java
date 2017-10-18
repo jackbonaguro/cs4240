@@ -46,7 +46,7 @@ public enum Token{
 				return END;
 			case "for":
 				return FOR;
-			case: "func":
+			case "func":
 			        return FUNC;
 			case "if":
 			        return IF;
