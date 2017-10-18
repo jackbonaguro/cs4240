@@ -1,1 +1,1 @@
-LET		TYPE ArrayInt = ARRAY [100] OF int; /*Declare ArrayInt as a new type */
+LET	TYPE ArrayInt = ARRAY [100] OF int; /*Declare ArrayInt as a new type */
