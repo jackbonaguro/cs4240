@@ -1,0 +1,143 @@
+<tiger-program> 		-> let <declaration-segment> in <stat-seq> end
+
+<declaration-segment> 		-> <type-declaration-list> <var-declaration-list> <funct-declaration-list>
+
+--------------------------------------------------------------------------------------------------------------
+
+<type-declaration-list> 	-> <type-declaration> <type-declaration-list>
+<type-declaration-list>		-> NULL
+
+<type-declaration> 		-> type id = <type>;
+
+<type> 				-> <type-id>
+<type> 				-> array [INTLIT] of <type-id>
+<type>				-> record <field-list> end
+<type> 				-> id
+
+<type-id>			-> int
+<type-id>			-> float
+
+<field-list> 			-> id : <type-id>; <field-list>
+<field-list>			-> NULL
+
+--------------------------------------------------------------------------------------------------------------
+
+<var-declaration-list>		-> <var-declaration> <var-declaration-list>
+<var-declaration-list>		-> NULL
+
+<var-declaration> 		-> var <id-list> : <type> <optional-init>;
+
+<id-list> 			-> id <id-list-tail>
+
+<id-list-tail> 			-> , <id-list>
+				-> NULL
+
+<optional-init>			-> := <const>
+<optional-init>			-> NULL
+
+--------------------------------------------------------------------------------------------------------------
+
+<funct-declaration-list>	-> <funct-declaration> <funct-declaration-list>
+<funct-declaration-list>	-> NULL
+
+<funct-declaration> 		-> function id (<param-list>) <ret-type> begin <stat-seq> end;
+
+<param-list>			-> <param> <param-list-tail>
+<param-list> 			-> NULL
+
+<param-list-tail>		-> , <param> <param-list-tail>
+<param-list-tail>		-> NULL
+
+<param> 			-> id : <type>
+
+<ret-type>			-> : <type>
+<ret-type>			-> NULL
+
+<stat-seq>			-> <stat> <stat-seq-tail>
+
+<stat-seq-tail>			-> <stat-seq>
+				-> NULL
+
+<stat> 				-> id <stat0>
+<stat>				-> if <expr> then <stat-seq> <stat-seq-if-endif-tail>
+<stat>				-> while <expr> do <stat-seq> enddo;
+<stat>				-> for id := <expr> to <expr> do <stat-seq> enddo;
+<stat> 				-> break;
+<stat>				-> return <expr>;
+<stat>				-> let <declaration-segment> in <stat-seq> end
+
+<stat-seq-if-endif-tail>	-> endif
+				-> else <stat-seq> endif;
+
+<stat0>				-> <lvalue-tail> <stat1>
+				-> (<expr-list>);
+
+<stat1>				-> := <expr>;
+				-> id (<expr-list>);
+
+<lvalue> 			-> id <lvalue-tail>
+
+<lvalue-tail>			-> [ <expr> ]
+<lvalue-tail> 			-> .id
+<lvalue-tail>			-> NULL
+
+<expr> 				-> <expr0> <exprPrime>
+
+<exprPrime>			-> | <expr0> <exprPrime>
+				-> NULL
+
+<expr0>				-> <term1> <expr0Prime>
+
+<expr0Prime>			-> & <term1> <expr0Prime>
+				-> NULL
+
+<term1>				-> <term2> <term1Prime>
+
+<term1Prime>			-> <op0> <term2> <term1Prime>
+				-> NULL
+
+<term2>				-> <term3> <term2Prime>
+
+<term2Prime>			-> <op1> <term3> <term2Prime>
+				-> NULL
+
+<term3>				-> <term4> <term3Prime>
+
+<term3Prime>			-> <op2> <term4> <term3Prime>
+				-> NULL
+
+<term4>				-> <term5> <term4Prime>
+
+<term4Prime>			-> <op3> <term5> <term4Prime>
+				-> NULL
+
+<term5> 			-> (<expr)
+				-> <const>
+				-> <lvalue>	
+
+<op0> 				-> <
+				-> >
+				-> <=
+				-> >=
+
+<op1>				-> =
+				- <>
+
+<op2>				-> +
+				-> -
+				
+<op3>				-> +
+				-> -
+
+
+<const> 			-> INTLIT
+<const>				-> FLOATLIT
+
+<opt-prefix>			-> <lvalue> :=
+<opt-prefix> 			-> NULL
+
+<expr-list>			-> <expr> <expr-list-tail>
+<expr-list>			-> NULL
+
+<expr-list-tail>		-> , <expr> <expr-list-tail>
+<expr-list-tail> 		-> NULL
