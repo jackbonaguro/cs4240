@@ -90,5 +90,53 @@
 <expr-list-tail> 		-> NULL
 
 
+--------------------------------------------------------------------------
+Adding operator precedence
+
+<expr>				-> <const>
+<expr>				-> <lvalue>
+<expr>				-> <expr> <binary-operator> <expr>
+<expr>				-> (<expr>)
+
+<binary-operator>		-> + | - | * | / | = | <> | < | > | <= | >= | & | |
+
+<expr>				-> <expr> | <expr0>
+				-> <expr0>
+
+<expr0>				-> <expr0> & <term1>
+				-> <term1>
+
+<term1>				-> <term1> <op0> <term2>
+				-> <term2>
+
+<term2>				-> <term2> <op1> <term3>
+				-> <term3>
+
+<term3>				-> <term3> <op2> <term4>
+				-> <term4>
+
+<term4>				-> <term4> <op3> <term5>
+				-> <term5>
+
+<term5> 			-> (<expr)
+				-> <const>
+				-> <lvalue>	
+
+<op0> 				-> <
+				-> >
+				-> <=
+				-> >=
+
+<op1>				-> =
+				- <>
+
+<op2>				-> +
+				-> -
+				
+<op3>				-> +
+				-> -
+
+
+
 
 		
