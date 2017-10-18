@@ -92,7 +92,7 @@
 
 --------------------------------------------------------------------------
 Adding operator precedence
-
+OLD:
 <expr>				-> <const>
 <expr>				-> <lvalue>
 <expr>				-> <expr> <binary-operator> <expr>
@@ -100,6 +100,7 @@ Adding operator precedence
 
 <binary-operator>		-> + | - | * | / | = | <> | < | > | <= | >= | & | |
 
+NEW:
 <expr>				-> <expr> | <expr0>
 				-> <expr0>
 
@@ -136,7 +137,49 @@ Adding operator precedence
 <op3>				-> +
 				-> -
 
+------------------------------------------------------------------------------------------------------------------------
+Removing left recursion
 
+<expr> 				-> <expr0> <exprPrime>
 
+<exprPrime>			-> | <expr0> <exprPrime>
+				-> NULL
+
+<expr0>				-> <term1> <expr0Prime>
+
+<expr0Prime>			-> & <term1> <expr0Prime>
+				-> NULL
+
+<term1>				-> <term2> <term1Prime>
+
+<term1Prime>			-> <op0> <term2> <term1Prime>
+				-> NULL
+
+<term2>				-> <term3> <term2Prime>
+
+<term2Prime>			-> <op1> <term3> <term2Prime>
+				-> NULL
+
+<term3>				-> <term4> <term3Prime>
+
+<term3Prime>			-> <op2> <term4> <term3Prime>
+				-> NULL
+
+<term4>				-> <term5> <term4Prime>
+
+<term4Prime>			-> <op3> <term5> <term4Prime>
+				-> NULL
+
+Left-factoring
+
+<id-list> 			-> id <id-list-tail>
+
+<id-list-tail> 			-> , <id-list>
+				-> NULL
+
+<stat-seq>			-> <stat> <stat-seq-tail>
+
+<stat-seq-tail>			-> <stat-seq>
+				-> NULL
 
 		
