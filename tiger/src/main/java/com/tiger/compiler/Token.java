@@ -32,6 +32,40 @@ public enum Token{
 				return LET;
 			case "type":
 				return TYPE;
+			case "array":
+				return ARRAY;
+			case "record":
+				return RECORD;
+			case "break":
+				return BREAK;
+			case "do":
+				return DO;
+			case "else":
+				return ELSE;
+			case "end":
+				return END;
+			case "for":
+				return FOR;
+			case: "func":
+			        return FUNC;
+			case "if":
+			        return IF;
+			case "in":
+			        return IN;
+			case "then":
+			        return THEN;
+			case "to":
+			        return TO;
+			case "var":
+			        return VAR;
+			case "while":
+			        return WHILE;
+			case "endif":
+			        return ENDIF;
+			case "begin":
+			        return BEGIN;
+			case "enddo":
+			        return ENDDO;
 			default:
 				return ID;
 		}
