@@ -26,6 +26,7 @@ public enum CharCat {
 	ZERO,
 	NUMNOTZERO,
 	WHITESPACE,
+	EOF,
 	OTHER;
 
 	public static CharCat classOf(char c) {
@@ -90,7 +91,8 @@ public enum CharCat {
 			case '8':
 			case '9':
 				return NUMNOTZERO;
-
+			case '\0':
+				return EOF;
 			default:
 				return OTHER;
 

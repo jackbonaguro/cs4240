@@ -28,5 +28,21 @@ public class TigerParser {
 		System.out.println("Token:" + token);
 		 token = scanner.next();
 		System.out.println("Token:" + token);
+		 token = scanner.next();
+		System.out.println("Token:" + token);
+		 token = scanner.next();
+		System.out.println("Token:" + token);
+		 token = scanner.next();
+		System.out.println("Token:" + token);
+		 token = scanner.next();
+		System.out.println("Token:" + token);
+		 token = scanner.next();
+		System.out.println("Token:" + token);
+		 token = scanner.next();
+		System.out.println("Token:" + token);
+		 token = scanner.next();
+		System.out.println("Token:" + token);
+		 token = scanner.next();
+		System.out.println("Token:" + token);
 	}
 }
