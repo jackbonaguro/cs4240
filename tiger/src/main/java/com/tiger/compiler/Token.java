@@ -1,8 +1,9 @@
 package com.tiger.compiler;
 
 import com.tiger.compiler.scanner.DfaState;
+import com.tiger.compiler.GrammarToken;
 
-public enum Token{
+public enum Token implements GrammarToken{
 	COMMA, COLON, SEMI, LPAREN, RPAREN, LBRACK, RBRACK, LBRACE, RBRACE, 
 	PERIOD, PLUS, MINUS, MULT, DIV, EQ, NEQ, LESSER, GREATER, LESSEREQ,
 	GREATEREQ, AND, OR, ASSIGN, ARRAY, RECORD, BREAK, DO, ELSE, END, FOR,
