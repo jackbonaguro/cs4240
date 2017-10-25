@@ -14,35 +14,12 @@ public class TigerParser {
 	public void parse() {
 		System.out.println("This is the parse method.");
 
-		TokenTuple token = this.scanner.next();
-		System.out.println("Token:" + token);
-		 token = scanner.next();
-		System.out.println("Token:" + token);
-		 token = scanner.next();
-		System.out.println("Token:" + token);
-		 token = scanner.next();
-		System.out.println("Token:" + token);
-		 token = scanner.next();
-		System.out.println("Token:" + token);
-		 token = scanner.next();
-		System.out.println("Token:" + token);
-		 token = scanner.next();
-		System.out.println("Token:" + token);
-		 token = scanner.next();
-		System.out.println("Token:" + token);
-		 token = scanner.next();
-		System.out.println("Token:" + token);
-		 token = scanner.next();
-		System.out.println("Token:" + token);
-		 token = scanner.next();
-		System.out.println("Token:" + token);
-		 token = scanner.next();
-		System.out.println("Token:" + token);
-		 token = scanner.next();
-		System.out.println("Token:" + token);
-		 token = scanner.next();
-		System.out.println("Token:" + token);
-		 token = scanner.next();
-		System.out.println("Token:" + token);
+		for (int i = 0; i < 20; i++) {
+			try {
+				System.out.println(this.scanner.next());
+			} catch (RuntimeException re) {
+				System.err.println(re);
+			}
+		}
 	}
 }
