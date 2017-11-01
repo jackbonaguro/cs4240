@@ -1,0 +1,173 @@
+<tiger-program> -> let <declaration-segment> 		let
+					in <stat-seq> end 			
+
+<declaration-segment> -> <type-declaration-list> 	type, var, function, in
+                         <var-declaration-list> 
+                         <funct-declaration-list>
+
+<type-declaration-list> 	-> <type-declaration> 	type
+							   <type-declaration-list>
+<type-declaration-list>		-> NULL					in, function, var
+
+<type-declaration> 		-> type id = <type>;		type
+
+<type> 				-> <type-id>					int, float
+<type> 				-> array [INTLIT] of <type-id>	array
+<type>				-> record <field-list> end 		record
+<type> 				-> id 							id 
+
+<type-id>			-> int 							int 
+<type-id>			-> float 						float
+
+<field-list> 			-> id : <type-id>; 			id 
+ 							<field-list>
+<field-list>			-> NULL						end
+
+<var-declaration-list>		-> <var-declaration>  	var
+							   <var-declaration-list>
+<var-declaration-list>		-> NULL 				end
+
+<var-declaration> 		-> var <id-list> : <type> 	var
+							<optional-init>;
+
+<id-list> 			-> id <id-list-tail>			id
+
+<id-list-tail> 			-> , <id-list>				COMMA
+				-> NULL								:
+
+<optional-init>			-> := <const>				:=
+<optional-init>			-> NULL						;
+
+<funct-declaration-list>	-> <funct-declaration>  function
+							   <funct-declaration-list>
+<funct-declaration-list>	-> NULL    				in
+
+<funct-declaration> 		-> function id 			function
+     						   (<param-list>) 
+     						   <ret-type> 
+     						   begin <stat-seq> end;
+
+<param-list>			-> <param> 					id
+						   <param-list-tail>
+<param-list> 			-> NULL						)
+
+<param-list-tail>		-> , <param> 				COMMA
+							<param-list-tail>
+<param-list-tail>		-> NULL						)
+
+<param> 			-> id : <type>					id
+
+<ret-type>			-> : <type>						:
+<ret-type>			-> NULL							begin
+
+<stat-seq>			-> <stat> <stat-seq-tail>		let, id, if, while, for, break, return
+
+<stat-seq-tail>		-> <stat-seq>					let, id, if ,while, for, break, return
+				-> NULL								end, endif, enddo, else
+
+<stat> 				-> id <f-or-a-stat>				id
+<stat>				-> if <expr> then <stat-seq> 	if
+					   <stat-seq-if-endif-tail>
+<stat>				-> while <expr> do 				while
+					   <stat-seq> enddo;
+<stat>				-> for id := <expr> to <expr> 	for
+                       do <stat-seq> enddo;
+<stat> 				-> break;						break
+<stat>				-> return <expr>;				return
+<stat>				-> let <declaration-segment>    let
+					   in <stat-seq> end
+
+<stat-seq-if-endif-tail>	-> endif 				endif
+				-> else <stat-seq> endif;			else
+
+<f-or-a-stat>			-> <lvalue-tail>  		PERIOD,[,let,id,if,while,for,break,return
+						   := <rhs-assign>
+				-> (<expr-list>);					(
+
+<rhs-assign>			-> id <f-or-e-stat>			id
+				-> <const>							INTLIT, FLOATLIT
+				-> (<expr>)							(
+
+<f-or-e-stat>			-> ( <expr-list> );			(
+				-> <lvalue-tail> <operator> 	PERIOD,[,let,id,if,while,for,break,return
+				   <expr>  
+
+
+<lvalue> 			-> id <lvalue-tail>				id
+
+<lvalue-tail>			-> [ <expr> ]				[
+<lvalue-tail> 			-> .id 						PERIOD
+<lvalue-tail>			-> NULL						:=,+,-,*,/,=,<>,<,>,<=,>=,&,|,(,id,
+													then, do, to, ;, ), ], COMMA, let,id,if,while,for,break,return,
+													else, end, endif, enddo
+
+<expr> 				-> <expr0> <exprPrime>			(,id,INTLIT,FLOATLIT
+
+<exprPrime>			-> | <expr0> <exprPrime>		|
+				-> NULL								then, do, to, ;, ), ], COMMA, 											let,id,if,while,for,break,return,
+													else, end, endif, enddo
+
+<expr0>				-> <term1> <expr0Prime>			(,id,INTLIT,FLOATLIT
+
+<expr0Prime>			-> & <term1> <expr0Prime>   &
+				-> NULL								then, do, to, ;, ), ], COMMA, 											let,id,if,while,for,break,return,
+													else, end, endif, enddo
+
+<term1>				-> <term2> <term1Prime>			(,id,INTLIT,FLOATLIT
+
+<term1Prime>			-> <op0> <term2> 			<,>,<=,>=
+							<term1Prime>			
+				-> NULL								then, do, to, ;, ), ], COMMA,
+													let,id,if,while,for,break,return,
+													else, end, endif, enddo
+
+<term2>				-> <term3> <term2Prime>			(,id,INTLIT,FLOATLIT
+
+<term2Prime>			-> <op1> <term3> 			=,<>
+							<term2Prime>			
+				-> NULL								then, do, to, ;, ), ], ,,
+													let,id,if,while,for,break,return,
+													else, end, endif, enddo
+
+<term3>				-> <term4> <term3Prime>			(,id,INTLIT,FLOATLIT
+
+<term3Prime>			-> <op2> <term4> 			+,-
+							<term3Prime>
+				-> NULL
+
+<term4>				-> <term5> <term4Prime>			(,id,INTLIT,FLOATLIT
+
+<term4Prime>			-> <op3> <term5> 			*,/
+							<term4Prime>
+				-> NULL								then, do, to, ;, ), ], COMMA,
+													let,id,if,while,for,break,return,
+													else, end, endif, enddo
+
+<term5> 			-> (<expr)						(
+				-> <const>							INTLIT, FLOATLIT
+				-> <lvalue>							id
+
+<op0> 				-> <							<
+				-> >								>
+				-> <=								<=
+				-> >=								>=
+
+<op1>				-> =							=
+				- <>								<>
+
+<op2>				-> +							+
+				-> -								-
+				
+<op3>				-> *							*
+				-> /								/
+
+
+<const> 			-> INTLIT						INTLIT
+<const>				-> FLOATLIT						FLOATLIT
+
+<expr-list>			-> <expr> <expr-list-tail>		(, id, INTLIT, FLOATLIT
+<expr-list>			-> NULL							)
+
+<expr-list-tail>		-> , <expr> 				COMMA
+						   <expr-list-tail>
+<expr-list-tail> 		-> NULL						)

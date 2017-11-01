@@ -1,0 +1,95 @@
+<tiger-program> 			let
+
+<declaration-segment> 		type, var, func, NULL
+
+<type-declaration-list> 	type, NULL
+
+<type-declaration> 			type
+
+<type> 						int, float, array, record, id
+
+<type-id>					int, float
+
+<field-list> 				id, NULL
+
+<var-declaration-list>		var, NULL
+
+<var-declaration> 			var
+
+<id-list> 					id
+
+<id-list-tail> 				COMMA, NULL
+				
+<optional-init>			    :=, NULL
+
+<funct-declaration-list>	function, NULL
+
+<funct-declaration> 		function
+
+<param-list>				id, NULL
+
+<param-list-tail>			COMMA, NULL
+
+<param> 					ID
+
+<ret-type>					:, NULL
+
+<stat-seq>					let, id, if, while, for, break, return
+
+<stat-seq-tail>				let, id, if, while, for, break, return, NULL
+
+<stat> 						let, id, if, while, for, break, return
+
+<stat-seq-if-endif-tail>	endif, else
+
+<f-or-a-stat>				(, PERIOD, [, NULL
+
+<rhs-assign>				id, (, INTLIT, FLOATLIT
+
+<f-or-e-stat>				(, PERIOD, [, NULL, //binary operators
+
+
+<lvalue> 					id
+
+<lvalue-tail>				[, PERIOD, NULL
+
+<expr> 						id, (, INTLIT, FLOATLIT
+
+<exprPrime>					|, NULL
+
+<expr0>						id, (, INTLIT, FLOATLIT
+
+<expr0Prime>				&, NULL
+
+<term1>						id, (, INTLIT, FLOATLIT
+
+<term1Prime>				<,>,<=,>=, NULL
+
+<term2>						id, (, INTLIT, FLOATLIT
+
+<term2Prime>				=, <>, NULL
+
+<term3>						id, (, INTLIT, FLOATLIT
+
+<term3Prime>				+,-, NULL
+
+<term4>						id, (, INTLIT, FLOATLIT
+
+<term4Prime>				*, /, NULL
+
+<term5> 					id, (, INTLIT, FLOATLIT
+
+<op0> 						<, >, <=, >=
+
+<op1>						=,<>
+
+<op2>				 		*,/
+				
+<op3>						+,-
+
+
+<const> 		 			INTLIT, FLOATLIT
+
+<expr-list>					(, id, INTLIT, FLOATLIT, NULL
+
+<expr-list-tail>			COMMA, NULL
