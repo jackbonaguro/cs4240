@@ -3,10 +3,15 @@ package com.tiger.compiler.parser;
 import com.tiger.compiler.scanner.TigerScanner;
 import com.tiger.compiler.TokenTuple;
 import com.tiger.compiler.Token;
+import com.tiger.compiler.GrammarToken;
+import com.tiger.compiler.parser.Nonterminal;
+
+import java.util.Stack;
 
 public class TigerParser {
 
 	private TigerScanner scanner;
+	private ParsingTalbe table;
 
 	public TigerParser(TigerScanner s) {
 		this.scanner = s;
@@ -20,34 +25,39 @@ public class TigerParser {
 		Stack<GrammarToken> stack = new Stack<GrammarToken>();
 		TokenTuple token = this.scanner.next();
 
+		lookAhead = token.getType();
 
-		stack.push(); //push EOF token onto stack
-		stack.push(); //push start symbol onto stack, production tiger program
 
+		stack.push(Token.EOF); //push EOF token onto stack
+		stack.push(Nonterminal.TIGER_PROGRAM); //push start symbol onto stack, production tiger program
+
+		focus = stack.peek();
 
 		while(true) {
 			if(focus == Token.EOF && lookAhead == Token.EOF) {
 				// parsing is complete, both lookahead and current element of stack are eof
 				System.out.println("Parse Succesful!");
 				break;
-			} else if(focus || focus == Token.EOF) { // check if focus is a terminal symbol, 
-				if(focus == lookahead) {
-					stack.pop();
+			} else if(focus instanceof Token || focus == Token.EOF) { // check if focus is a terminal symbol, 
+				if(focus == lookAhead) {
+					GrammarToken removedGrammarToken = stack.pop();
 					token = this.scanner.next();
-					lookahead = ; //get the next word
+					lookAhead = token.getType(); //get the next word
 				} else {
 					System.out.println("Error looking for symbol at top of stack.");
+					System.out.println("focus: " + focus);
+					System.out.println("lookAhead:" + lookAhead);
 				}
 			} else {
 				//focus is a nonterminal
-				if() { //we loop up in our ll(1) parse table to check if we can expand a production rule
+				if(ParsingTable.productionExpansionExists(focus, lookAhead)) { //we loop up in our ll(1) parse table to check if we can expand a production rule
 					stack.pop();
 					// loop through the production rule RHS 
-					for(GrammarToken t : list) { //TODO: loop backwards
-						if (t != null) {
-							stack.push(t);
-						}
-					}
+					// for(GrammarToken t : list) { //TODO: loop backwards
+					// 	if (t != null) {
+					// 		stack.push(t);
+					// 	}
+					// }
 				} else {
 					System.out.println("Error expanding focus.");
 				}
@@ -58,6 +68,5 @@ public class TigerParser {
 		}
 
 
-		
 	}
 }

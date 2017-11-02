@@ -129,8 +129,23 @@ public class TigerScanner {
 		if(token == Token.ERROR) {
 			//throw exception, print out column, line, etc.
 			//curr_pos++; //skip the deleted character
-			System.out.println("ERROR");
-			return next();
+			//System.out.println("ERROR");
+			//return next();
+			if (endReached) {
+				String msg = "Line "+this.line+": ";
+				for (int i = curr_pos - column + 1; i < curr_pos; i++) {
+					msg += charStream.get(i);
+				}
+				msg += "\""+validString+"\"";
+				throw new RuntimeException(msg);
+			} else {
+				String msg = "Line "+this.line+": ";
+				for (int i = curr_pos - column + 1; i < curr_pos - 1; i++) {
+					msg += charStream.get(i);
+				}
+				msg += "\""+validString+"\"";
+				throw new RuntimeException(msg);
+			}
 		}
 
 		TokenTuple return_token = new TokenTuple(validString, token);

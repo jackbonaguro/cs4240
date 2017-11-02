@@ -1,4 +1,4 @@
-package com.tiger.compiler
+package com.tiger.compiler;
 
 public interface GrammarToken {
 	
