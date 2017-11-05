@@ -5,16 +5,20 @@ import com.tiger.compiler.TokenTuple;
 import com.tiger.compiler.Token;
 import com.tiger.compiler.GrammarToken;
 import com.tiger.compiler.parser.Nonterminal;
+import com.tiger.compiler.parser.ParsingTable;
 
 import java.util.Stack;
 
 public class TigerParser {
 
 	private TigerScanner scanner;
-	private ParsingTalbe table;
+	private ParsingTable table;
+	//private Map<Integer, ProductionRule> production_rules;
 
 	public TigerParser(TigerScanner s) {
 		this.scanner = s;
+		this.table = new ParsingTable();
+		//this.production_rules = new 
 	}
 
 	public void parse() {
@@ -50,7 +54,7 @@ public class TigerParser {
 				}
 			} else {
 				//focus is a nonterminal
-				if(ParsingTable.productionExpansionExists(focus, lookAhead)) { //we loop up in our ll(1) parse table to check if we can expand a production rule
+				if(table.productionExpansionExists(focus, lookAhead)) { //we loop up in our ll(1) parse table to check if we can expand a production rule
 					stack.pop();
 					// loop through the production rule RHS 
 					// for(GrammarToken t : list) { //TODO: loop backwards
@@ -64,7 +68,7 @@ public class TigerParser {
 			}
 			focus = stack.peek();
 
-
+			break;
 		}
 
 
