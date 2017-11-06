@@ -38,6 +38,10 @@ public class TigerParser {
 		focus = stack.peek();
 
 		while(true) {
+			System.out.println("Focus:" + focus);
+			System.out.println("lookAhead:" + lookAhead);
+
+
 			if(focus == Token.EOF && lookAhead == Token.EOF) {
 				// parsing is complete, both lookahead and current element of stack are eof
 				System.out.println("Parse Succesful!");
@@ -54,8 +58,9 @@ public class TigerParser {
 				}
 			} else {
 				//focus is a nonterminal
-				if(table.productionExpansionExists(focus, lookAhead)) { //we loop up in our ll(1) parse table to check if we can expand a production rule
-					stack.pop();
+				if(table.productionExpansionExists((Nonterminal) focus, lookAhead)) { //we loop up in our ll(1) parse table to check if we can expand a production rule
+					//stack.pop();
+					System.out.println(table.getProductionNumber(focus, lookAhead));
 					// loop through the production rule RHS 
 					// for(GrammarToken t : list) { //TODO: loop backwards
 					// 	if (t != null) {
