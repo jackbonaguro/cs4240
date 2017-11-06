@@ -68,6 +68,8 @@ public enum Token{
 				return classOfIdentifier(str);
 			//Not finished
 			//Literal states must be added
+			case 28:
+				return INTLIT;
 			case 29:
 				return INTLIT;
 			case 30:

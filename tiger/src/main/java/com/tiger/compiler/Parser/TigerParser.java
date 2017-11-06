@@ -14,7 +14,7 @@ public class TigerParser {
 	public void parse() {
 		System.out.println("This is the parse method.");
 
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 30; i++) {
 			try {
 				System.out.println(this.scanner.next());
 			} catch (RuntimeException re) {

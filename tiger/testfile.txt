@@ -1,2 +1,3 @@
 let type ArrayInt = array [100] of int; /*Declare ArrayInt as a new type */
 type ! ! !!!! !
+1 1 10
