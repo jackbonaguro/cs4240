@@ -36,6 +36,13 @@ public class ParsingTable {
 		return rule_number;
 	}
 
+	public ProductionRule getProduction(GrammarToken production, GrammarToken terminal) {
+		Map<Token, Integer> row = this.table.get(production);
+		int rule_number = row.get(terminal);
+		ProductionRule prod = rule_lookup.get(rule_number);
+		return prod;
+	}
+
 	public HashMap<Nonterminal, HashMap<Token, Integer>> buildParsingTable(String filename) {
 		HashMap<Nonterminal, HashMap<Token, Integer>> parsing_table = new HashMap<>();
 		List<Token> terminals = new ArrayList<>();

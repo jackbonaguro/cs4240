@@ -15,4 +15,8 @@ public class ProductionRule {
 		this.lhs = lhs;
 		this.rhs = rhs;
 	}
+
+	public List<GrammarToken> getRhs() {
+		return this.rhs;
+	}
 }

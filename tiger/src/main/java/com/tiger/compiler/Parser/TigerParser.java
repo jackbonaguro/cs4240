@@ -8,6 +8,7 @@ import com.tiger.compiler.parser.Nonterminal;
 import com.tiger.compiler.parser.ParsingTable;
 
 import java.util.Stack;
+import java.util.List;
 
 public class TigerParser {
 
@@ -40,6 +41,7 @@ public class TigerParser {
 		while(true) {
 			System.out.println("Focus:" + focus);
 			System.out.println("lookAhead:" + lookAhead);
+			System.out.println("stack:" + stack);
 
 
 			if(focus == Token.EOF && lookAhead == Token.EOF) {
@@ -59,21 +61,25 @@ public class TigerParser {
 			} else {
 				//focus is a nonterminal
 				if(table.productionExpansionExists((Nonterminal) focus, lookAhead)) { //we loop up in our ll(1) parse table to check if we can expand a production rule
-					//stack.pop();
-					System.out.println(table.getProductionNumber(focus, lookAhead));
-					// loop through the production rule RHS 
-					// for(GrammarToken t : list) { //TODO: loop backwards
-					// 	if (t != null) {
-					// 		stack.push(t);
-					// 	}
-					// }
+					ProductionRule prod = table.getProduction(focus, lookAhead);
+
+
+					List<GrammarToken> rhs = prod.getRhs();
+					stack.pop();
+					for(int i = rhs.size() - 1; i >= 0; i--) {
+						if(rhs.get(i) != Token.NULL) {
+							stack.push(rhs.get(i));
+						}
+					}
+
+					
 				} else {
 					System.out.println("Error expanding focus.");
+					break;
 				}
 			}
 			focus = stack.peek();
 
-			break;
 		}
 
 
