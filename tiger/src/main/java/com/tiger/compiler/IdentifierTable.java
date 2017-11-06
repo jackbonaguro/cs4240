@@ -1,8 +1,5 @@
 /**
- * The identifier table. Currently uses universal scope variable. In the future may use linked tables
- * to handle to scope.
- * Creates entries. To use scope, initialize, add entries with putEntry(). On entry and exit of scopes,
- * use initializeScope() and finalizeScope(), respectively
+ * The identifier table. Currently used with IdentifierTableList
  */
 
 package com.tiger.compiler;
@@ -21,33 +18,50 @@ public class IdentifierTable {
         this.scope = 0;
     }
 
-    // used to point to surrounding scope table
+    /* Used to point to surrounding scope table */
     public void setNext(IdentifierTable next) {
         this.next = next;
     }
 
+    public IdentifierTable getNext() {
+        return this.next;
+    }
+
+    /*
+     When the list initializes table, scope is zero; inc and dec are insufficient
+     */
+    public void setScope(int scope) {
+        this.scope = scope;
+    }
+
+    /*
+    * Retrieve table entry based on id */
     public IdentifierTableEntry lookup(int id) {
         return table.get(id);
     }
 
-    public void putEntry(int id, String entryName, int entryTypeId, int entryScope) {
-        IdentifierTableEntry newEntry = new IdentifierTableEntry(entryName, entryTypeId, entryScope);
+    /*
+    * Place entry on table */
+    public void putEntry(int id, String entryName, int entryTypeId) {
+        IdentifierTableEntry newEntry = new IdentifierTableEntry(entryName, entryTypeId, scope);
         table.put(id, newEntry);
     }
 
-    public void initializeScope() {
-        scope += 1;
+    /*
+    * Traverse linked list of tables and output entries
+    */
+    public void readEntries() {
+        for (Integer key : table.keySet()) {
+            IdentifierTableEntry ent = table.get(key);
+            System.out.print(key + " : " + ent.typeId + ", ");
+            System.out.println(ent.name + ", " + ent.scope);
+        }
+
     }
 
-    public void finalizeScope() {
-        if (scope <= 0) {
-            return;
-        }
-        scope -= 1;
-        for (Object key : table.keySet()) {
-            if (table.get(key).scope >= scope) {
-                table.remove(key);
-            }
-        }
+    /*
+    * Remove an entry from the table based on id */
+    public void removeEntry(int id) {
+        table.remove(id);
     }
 }
