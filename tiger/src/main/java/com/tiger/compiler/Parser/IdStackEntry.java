@@ -5,6 +5,7 @@ public class IdStackEntry {
 	public boolean isType;
 	public boolean isId;
 	public boolean isConst;
+	public boolean isInt;
 
 	/*public IdStackEntry(String name, boolean t, boolean i, boolean c) {
 		this.name = name;

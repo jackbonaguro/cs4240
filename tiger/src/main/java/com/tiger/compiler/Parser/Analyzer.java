@@ -24,7 +24,7 @@ public class Analyzer {
 		this.idStackConst = false;
 	}
 
-	public void analyze(SemanticAction sa) {
+	public void analyze(SemanticAction sa) throws Exception{
 		//System.out.println("################\t"+sa);
 		switch (sa) {
 			case IDSTACK_PUSH_ID:
@@ -39,5 +39,34 @@ public class Analyzer {
 		a.name = id.label;
 		a.isId = true;
 		idStack.push(a);
+	}
+
+	public void idstack_pop_type() {
+		String t;
+		if(idStackConst) {
+			String c;
+			if(idStack.peek().isInt) {
+				c = idStack.pop().name;
+				t = idStack.pop().name;
+				if (!t.equals("int")) {
+					throw new Exception("Semantic Error");
+				}
+			} else {
+				c = idStack.pop().name;
+				t = idStack.pop().name;
+				if (!t.equals("float")) {
+					throw new Exception("Semantic Error");
+				}
+			}
+		} else {
+			t = idStack.pop().name;
+		}
+		while(idStack.peek().isId) {
+			String i = idStack.pop().name;
+			//add to id table with hash of type from typetable as typeid
+			//id table must check if name is already used in that scope
+
+		}
+		//Code generation - makes use of c and idStackConst, then resets idStackConst
 	}
 }
