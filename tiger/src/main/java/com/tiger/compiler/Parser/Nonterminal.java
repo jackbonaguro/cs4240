@@ -1,6 +1,6 @@
 package com.tiger.compiler.parser;
 
-import com.tiger.compiler.GrammarToken;
+import com.tiger.compiler.parser.GrammarToken;
 
 public enum Nonterminal implements GrammarToken {
 	TIGER_PROGRAM, DECLARATION_STAT, TYPE_DECL_LIST, VAR_DECL_LIST,

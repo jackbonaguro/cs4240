@@ -3,9 +3,10 @@ package com.tiger.compiler.parser;
 import com.tiger.compiler.scanner.TigerScanner;
 import com.tiger.compiler.TokenTuple;
 import com.tiger.compiler.Token;
-import com.tiger.compiler.GrammarToken;
+import com.tiger.compiler.parser.GrammarToken;
 import com.tiger.compiler.parser.Nonterminal;
 import com.tiger.compiler.parser.ParsingTable;
+import com.tiger.compiler.parser.SemanticAction;
 
 import java.util.Stack;
 import java.util.List;
@@ -28,6 +29,7 @@ public class TigerParser {
 
 		System.out.println("This is the parse method.");
 		Stack<GrammarToken> stack = new Stack<GrammarToken>();
+		Analyzer analyzer = new Analyzer(stack);
 		TokenTuple token = this.scanner.next();
 
 		lookAhead = token.getType();
@@ -58,7 +60,7 @@ public class TigerParser {
 					System.out.println("focus: " + focus);
 					System.out.println("lookAhead:" + lookAhead);
 				}
-			} else {
+			} else if (focus instanceof Nonterminal) {
 				//focus is a nonterminal
 				if(table.productionExpansionExists((Nonterminal) focus, lookAhead)) { //we loop up in our ll(1) parse table to check if we can expand a production rule
 					ProductionRule prod = table.getProduction(focus, lookAhead);
@@ -77,6 +79,10 @@ public class TigerParser {
 					System.out.println("Error expanding focus.");
 					break;
 				}
+			} else if (focus instanceof SemanticAction) {
+				//focus is a semantic action
+				GrammarToken removedGrammarToken = stack.pop();
+				analyzer.analyze((SemanticAction) focus);
 			}
 			focus = stack.peek();
 

@@ -1,7 +1,7 @@
 package com.tiger.compiler;
 
 import com.tiger.compiler.scanner.DfaState;
-import com.tiger.compiler.GrammarToken;
+import com.tiger.compiler.parser.GrammarToken;
 
 public enum Token implements GrammarToken{
 	COMMA, COLON, SEMI, LPAREN, RPAREN, LBRACK, RBRACK, LBRACE, RBRACE, 

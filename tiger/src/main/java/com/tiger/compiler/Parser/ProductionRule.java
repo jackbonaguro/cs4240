@@ -2,7 +2,7 @@ package com.tiger.compiler.parser;
 
 import java.util.List;
 
-import com.tiger.compiler.GrammarToken;
+import com.tiger.compiler.parser.GrammarToken;
 import com.tiger.compiler.parser.Nonterminal;
 
 public class ProductionRule {

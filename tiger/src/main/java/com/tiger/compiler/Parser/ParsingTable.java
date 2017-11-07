@@ -7,10 +7,11 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.File;
 
-import com.tiger.compiler.GrammarToken;
+import com.tiger.compiler.parser.GrammarToken;
 import com.tiger.compiler.Token;
 import com.tiger.compiler.parser.ProductionRule;
 import com.tiger.compiler.parser.Nonterminal;
+import com.tiger.compiler.parser.SemanticAction;
 
 public class ParsingTable {
 	public HashMap<Nonterminal, HashMap<Token, Integer>> table;
@@ -136,7 +137,10 @@ public class ParsingTable {
 						Nonterminal y = Nonterminal.valueOf(grammar_symbol.substring(1, grammar_symbol.length() - 1));
 						right_hand_tokens.add(y);
 					} else if(grammar_symbol.charAt(0) == '#') {
-						int i = 0;
+						//Semantic Actions
+						SemanticAction z = SemanticAction.valueOf(grammar_symbol.substring(1, grammar_symbol.length() - 1));
+						//int i = 0;
+						right_hand_tokens.add(z);
 					} else {
 						Token x = Token.valueOf(grammar_symbol);
 						right_hand_tokens.add(x);
