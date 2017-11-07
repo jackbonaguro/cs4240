@@ -1,7 +1,7 @@
 package com.tiger.compiler.parser;
 
 import java.util.*;
-import com.tiger.compiler.TypeTableEntry;
+import com.tiger.compiler.parser.TypeTableEntry;
 
 public class TypeTable {
   HashMap<Integer,TypeTableEntry> table;
@@ -29,5 +29,9 @@ public class TypeTable {
             System.out.println(ent.name);
         }
 
+  }
+
+  public int getParent(int entryHash) {
+  	return table(hash).parent;
   }
 }
