@@ -42,8 +42,8 @@ public class IdentifierTable {
 
     /*
     * Place entry on table */
-    public void putEntry(int entryId, String entryName, int entryTypeId) {
-        IdentifierTableEntry newEntry = new IdentifierTableEntry(id, entryName, entryTypeId, scope);
+    public void putEntry(String entryName, int entryTypeId) {
+        IdentifierTableEntry newEntry = new IdentifierTableEntry(entryName, entryTypeId, scope);
         table.put(newEntry.hash(), newEntry);
     }
 
