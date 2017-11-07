@@ -29,6 +29,12 @@ public class Analyzer {
 		switch (sa) {
 			case IDSTACK_PUSH_ID:
 				this.idstack_push_id();
+			case IDSTACK_PUSH_CONST: 
+				this.idStack_push_const();
+			case IDSTACK_PUSH_TYPE:
+			    this.idStack_push_type();
+			case IDSTACK_POP_TYPE:
+				this.idstack_pop_type();
 		}
 	}
 
@@ -39,6 +45,28 @@ public class Analyzer {
 		a.name = id.label;
 		a.isId = true;
 		idStack.push(a);
+
+	}
+
+	private void idstack_push_type() {
+		Token id = (Token) parserStack.peek();
+		IdStackEntry a = new IdStackEntry();
+		a.name = id.label;
+		a.isType = true;
+		idStack.push(a);
+	}
+
+	private void idstack_push_const() {
+		this.idStackConst = true;
+        Token id = (Token) parserStack.peek();
+		IdStackEntry a = new IdStackEntry();
+		a.name = id.label;
+		a.isConst = true;
+		if (id == Token.INTLIT) {
+			a.isInt = true;
+		}
+		idStack.push(a);
+		this.idStackConst = false;
 	}
 
 	public void idstack_pop_type() {
