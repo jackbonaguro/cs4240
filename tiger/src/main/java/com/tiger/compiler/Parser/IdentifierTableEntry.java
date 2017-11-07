@@ -1,4 +1,4 @@
-package com.tiger.compiler;
+package com.tiger.compiler.parser;
 
 public class IdentifierTableEntry extends Object{
     public String name;

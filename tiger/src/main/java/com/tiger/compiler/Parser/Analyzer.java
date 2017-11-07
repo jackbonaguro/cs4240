@@ -6,6 +6,8 @@ import com.tiger.compiler.parser.GrammarToken;
 import com.tiger.compiler.parser.Nonterminal;
 import com.tiger.compiler.parser.ParsingTable;
 import com.tiger.compiler.parser.SemanticAction;
+import com.tiger.compiler.parser.TypeTable;
+import com.tiger.compiler.parser.IdentifierTable;
 
 import java.util.Stack;
 import java.util.List;
@@ -13,26 +15,32 @@ import java.util.List;
 public class Analyzer {
 
 	private Stack<GrammarToken> parserStack;
+	private TypeTable typeTable;
+	private IdentifierTable identifierTable;
 
 	//Private data structures
 	public Stack<IdStackEntry> idStack;
 	public boolean idStackConst;
 
-	public Analyzer(Stack<GrammarToken> parserStack) {
+	public Analyzer(Stack<GrammarToken> parserStack, TypeTable typeTable, IdentifierTable identifierTable) {
 		this.parserStack = parserStack;
+		this.typeTable = typeTable;
+		this.identifierTable = identifierTable;
+
+		//Analysis state variables
 		this.idStack = new Stack<IdStackEntry>();
 		this.idStackConst = false;
 	}
 
 	public void analyze(SemanticAction sa) throws Exception{
-		//System.out.println("################\t"+sa);
+		System.out.println(sa);
 		switch (sa) {
 			case IDSTACK_PUSH_ID:
 				this.idstack_push_id();
 			case IDSTACK_PUSH_CONST: 
-				this.idStack_push_const();
+				this.idstack_push_const();
 			case IDSTACK_PUSH_TYPE:
-			    this.idStack_push_type();
+			    this.idstack_push_type();
 			case IDSTACK_POP_TYPE:
 				this.idstack_pop_type();
 		}
@@ -69,13 +77,14 @@ public class Analyzer {
 		this.idStackConst = false;
 	}
 
-	public void idstack_pop_type() {
+	public void idstack_pop_type() throws Exception{
 		String t;
 		if(idStackConst) {
 			String c;
 			if(idStack.peek().isInt) {
 				c = idStack.pop().name;
 				t = idStack.pop().name;
+
 				if (!t.equals("int")) {
 					throw new Exception("Semantic Error");
 				}
@@ -89,12 +98,21 @@ public class Analyzer {
 		} else {
 			t = idStack.pop().name;
 		}
+
+		//Get type's hash from typetable
+		int hash = 0;
+		for (TypeTableEntry ent : typeTable.table.values()) {
+	  		if (ent.name.equals(t)) {
+	  			hash = ent.hashCode();
+	  		}
+	  	}
+
 		while(idStack.peek().isId) {
 			String i = idStack.pop().name;
 			//add to id table with hash of type from typetable as typeid
-			//id table must check if name is already used in that scope
-
+			identifierTable.putEntry(i, hash);
 		}
+
 		//Code generation - makes use of c and idStackConst, then resets idStackConst
 	}
 }
