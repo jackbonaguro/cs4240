@@ -2,10 +2,10 @@
  * The identifier table. Currently used with IdentifierTableList
  */
 
-package com.tiger.compiler;
+package com.tiger.compiler.parser;
 
 import java.util.*;
-import com.tiger.compiler.IdentifierTableEntry;
+import com.tiger.compiler.parser.IdentifierTableEntry;
 
 public class IdentifierTable {
     private HashMap<Integer,IdentifierTableEntry> table;
@@ -42,9 +42,14 @@ public class IdentifierTable {
 
     /*
     * Place entry on table */
-    public void putEntry(String entryName, int entryTypeId) {
+    public void putEntry(String entryName, int entryTypeId) throws Exception{
         IdentifierTableEntry newEntry = new IdentifierTableEntry(entryName, entryTypeId, scope);
-        table.put(newEntry.hash(), newEntry);
+        for (IdentifierTableEntry ent : table.values()) {
+            if (ent.name.equals(newEntry.name)) {
+                throw new Exception("Semantic Error");
+            }
+        }
+        table.put(newEntry.hashCode(), newEntry);
     }
 
     /*

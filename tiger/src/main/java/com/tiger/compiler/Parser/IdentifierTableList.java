@@ -3,7 +3,7 @@
 * table variable to point to the current with getCurrent().
 */
 
-package com.tiger.compiler;
+package com.tiger.compiler.parser;
 
 public class IdentifierTableList {
 

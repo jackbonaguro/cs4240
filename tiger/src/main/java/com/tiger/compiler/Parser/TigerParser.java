@@ -7,6 +7,8 @@ import com.tiger.compiler.parser.GrammarToken;
 import com.tiger.compiler.parser.Nonterminal;
 import com.tiger.compiler.parser.ParsingTable;
 import com.tiger.compiler.parser.SemanticAction;
+import com.tiger.compiler.parser.TypeTable;
+import com.tiger.compiler.parser.IdentifierTable;
 
 import java.util.Stack;
 import java.util.List;
@@ -29,7 +31,11 @@ public class TigerParser {
 
 		System.out.println("This is the parse method.");
 		Stack<GrammarToken> stack = new Stack<GrammarToken>();
-		Analyzer analyzer = new Analyzer(stack);
+		TypeTable typeTable = new TypeTable();
+		IdentifierTable identifierTable = new IdentifierTable();
+
+		Analyzer analyzer = new Analyzer(stack, typeTable, identifierTable);
+
 		TokenTuple token = this.scanner.next();
 
 		lookAhead = token.getType();
@@ -82,12 +88,14 @@ public class TigerParser {
 			} else if (focus instanceof SemanticAction) {
 				//focus is a semantic action
 				GrammarToken removedGrammarToken = stack.pop();
-				analyzer.analyze((SemanticAction) focus);
+				try {
+					analyzer.analyze((SemanticAction) focus);
+				} catch(Exception e) {
+					System.err.println(e);
+				}
 			}
 			focus = stack.peek();
 
 		}
-
-
 	}
 }
