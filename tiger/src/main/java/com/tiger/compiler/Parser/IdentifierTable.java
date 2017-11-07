@@ -42,7 +42,7 @@ public class IdentifierTable {
 
     /*
     * Place entry on table */
-    public void putEntry(int id, String entryName, int entryTypeId) {
+    public void putEntry(int entryId, String entryName, int entryTypeId) {
         IdentifierTableEntry newEntry = new IdentifierTableEntry(id, entryName, entryTypeId, scope);
         table.put(newEntry.hash(), newEntry);
     }

@@ -12,9 +12,9 @@ public class TypeTable {
 
   public void putEntry(int hash, TypeTableEntry entry) {
 
-  	for (TypeTableEntry hash : table.getValues()) {
+  	for (TypeTableEntry ent : table.getValues()) {
   	    
-  		if (hash.name.equals(entry.name)) {
+  		if (ent.name.equals(entry.name)) {
   			System.out.println("Cain't do dat");
   			return;
   		}
