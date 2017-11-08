@@ -44,6 +44,6 @@ public class TypeTable {
   }
 
   public int getParent(int entryHash) {
-  	return table(hash).parent;
+  	return table.get(entryHash).parent;
   }
 }

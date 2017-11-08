@@ -138,8 +138,7 @@ public class ParsingTable {
 						right_hand_tokens.add(y);
 					} else if(grammar_symbol.charAt(0) == '#') {
 						//Semantic Actions
-						SemanticAction z = SemanticAction.valueOf(grammar_symbol.substring(1, grammar_symbol.length() - 1));
-						//int i = 0;
+						SemanticAction z = SemanticAction.valueOf(grammar_symbol.substring(1, grammar_symbol.length()));
 						right_hand_tokens.add(z);
 					} else {
 						Token x = Token.valueOf(grammar_symbol);

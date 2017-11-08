@@ -47,8 +47,8 @@ public class TigerParser {
 		focus = stack.peek();
 
 		while(true) {
-			System.out.println("Focus:" + focus);
-			System.out.println("lookAhead:" + lookAhead);
+			//System.out.println("Focus:" + focus);
+			//System.out.println("lookAhead:" + lookAhead);
 			System.out.println("stack:" + stack);
 
 
@@ -63,8 +63,8 @@ public class TigerParser {
 					lookAhead = token.getType(); //get the next word
 				} else {
 					System.out.println("Error looking for symbol at top of stack.");
-					System.out.println("focus: " + focus);
-					System.out.println("lookAhead:" + lookAhead);
+					//System.out.println("focus: " + focus);
+					//System.out.println("lookAhead:" + lookAhead);
 				}
 			} else if (focus instanceof Nonterminal) {
 				//focus is a nonterminal
@@ -79,14 +79,13 @@ public class TigerParser {
 							stack.push(rhs.get(i));
 						}
 					}
-
-					
 				} else {
 					System.out.println("Error expanding focus.");
 					break;
 				}
 			} else if (focus instanceof SemanticAction) {
 				//focus is a semantic action
+				System.out.println(focus);
 				GrammarToken removedGrammarToken = stack.pop();
 				try {
 					analyzer.analyze((SemanticAction) focus);

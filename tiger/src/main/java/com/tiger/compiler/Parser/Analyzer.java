@@ -33,7 +33,7 @@ public class Analyzer {
 	}
 
 	public void analyze(SemanticAction sa) throws Exception{
-		System.out.println(sa);
+		System.out.println("\n"+sa+"\n");
 		switch (sa) {
 			case IDSTACK_PUSH_ID:
 				this.idstack_push_id();
