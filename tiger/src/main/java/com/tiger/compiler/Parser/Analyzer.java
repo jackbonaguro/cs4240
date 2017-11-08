@@ -48,6 +48,7 @@ public class Analyzer {
 
 	private void idstack_push_id() {
 		//Only comes after an id, otherwise error will bubble up
+		System.out.println(parserStack.peek());
 		Token id = (Token) parserStack.peek();
 		IdStackEntry a = new IdStackEntry();
 		a.name = id.label;
@@ -57,6 +58,7 @@ public class Analyzer {
 	}
 
 	private void idstack_push_type() {
+		System.out.println(parserStack.peek());
 		Token id = (Token) parserStack.peek();
 		IdStackEntry a = new IdStackEntry();
 		a.name = id.label;
@@ -65,6 +67,7 @@ public class Analyzer {
 	}
 
 	private void idstack_push_const() {
+		System.out.println(parserStack.peek());
 		this.idStackConst = true;
         Token id = (Token) parserStack.peek();
 		IdStackEntry a = new IdStackEntry();

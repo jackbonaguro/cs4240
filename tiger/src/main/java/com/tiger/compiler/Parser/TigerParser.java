@@ -85,7 +85,6 @@ public class TigerParser {
 				}
 			} else if (focus instanceof SemanticAction) {
 				//focus is a semantic action
-				System.out.println(focus);
 				GrammarToken removedGrammarToken = stack.pop();
 				try {
 					analyzer.analyze((SemanticAction) focus);
