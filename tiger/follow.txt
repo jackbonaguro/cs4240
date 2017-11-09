@@ -1,0 +1,126 @@
+<tiger-program> 			EOF
+
+<declaration-segment> 		in
+
+<type-declaration-list> 	in, function, var
+
+<type-declaration> 			type, var, function, in
+
+<type> 						begin, ;, :=, COMMA, )
+
+<type-id>					;, COMMA, :=, )
+
+<field-list> 				end
+
+<var-declaration-list>		in, function
+
+<var-declaration> 			var, function, in
+
+<id-list> 					:
+
+<id-list-tail> 				:
+				
+<optional-init>			    ;
+
+<funct-declaration-list>	in
+
+<funct-declaration> 		function, in
+
+<param-list>				)
+
+<param-list-tail>			)
+
+<param> 					), COMMA
+
+<ret-type>					begin
+
+<stat-seq>					end, endif, enddo, else
+
+<stat-seq-tail>				end, endif, else, enddo
+
+<stat> 						id, if, while, for, break, return, let, 
+							end, endif, else, enddo
+
+<stat-seq-if-endif-tail>	id, if, while, for, break, return, let, 
+							end, endif, else, enddo
+
+<f-or-a-stat>				id, if, while, for, break, return, let, 
+							end, endif, else, enddo
+
+<rhs-assign>				id, if, while, for, break, return, let, 
+							end, endif, else, enddo
+
+<f-or-e-stat>				id, if, while, for, break, return, let, 
+							end, endif, else, enddo
+
+
+<lvalue> 					
+
+<lvalue-tail>				
+
+<expr> 						id, if, while, for, break, return, let, 
+							end, endif, else, enddo, then, do, to, ;, ), ], COMMA,
+
+<exprPrime>					id, if, while, for, break, return, let, 
+							end, endif, else, enddo, then, do, to, ;, ), ], COMMA,
+
+
+<expr0>						id, if, while, for, break, return, let, 
+							end, endif, else, enddo, then, do, to, ;, ), ], COMMA,
+							(, INTLIT, FLOATLIT, |
+
+<expr0Prime>				id, if, while, for, break, return, let, 
+							end, endif, else, enddo, then, do, to, ;, ), ], COMMA,
+							(, INTLIT, FLOATLIT, |
+
+<term1>						id, if, while, for, break, return, let, 
+							end, endif, else, enddo, then, do, to, ;, ), ], COMMA,
+							(, INTLIT, FLOATLIT, |, &
+
+<term1Prime>				id, if, while, for, break, return, let, 
+							end, endif, else, enddo, then, do, to, ;, ), ], COMMA,
+							(, INTLIT, FLOATLIT, |, &
+
+<term2>						id, if, while, for, break, return, let, 
+							end, endif, else, enddo, then, do, to, ;, ), ], COMMA,
+							(, INTLIT, FLOATLIT, |, &, <, >, <=, >=
+
+<term2Prime>				id, if, while, for, break, return, let, 
+							end, endif, else, enddo, then, do, to, ;, ), ], COMMA,
+							(, INTLIT, FLOATLIT, |, &, <, >, <=, >=
+
+<term3>						id, if, while, for, break, return, let, 
+							end, endif, else, enddo, then, do, to, ;, ), ], COMMA,
+							(, INTLIT, FLOATLIT, |, &, <, >, <=, >=, =, <>
+
+<term3Prime>				id, if, while, for, break, return, let, 
+							end, endif, else, enddo, then, do, to, ;, ), ], COMMA,
+							(, INTLIT, FLOATLIT, |, &, <, >, <=, >=, =, <>
+
+<term4>						id, if, while, for, break, return, let, 
+							end, endif, else, enddo, then, do, to, ;, ), ], COMMA,
+							(, INTLIT, FLOATLIT, |, &, <, >, <=, >=, =, <>, +, -
+
+<term4Prime>				id, if, while, for, break, return, let, 
+							end, endif, else, enddo, then, do, to, ;, ), ], COMMA,
+							(, INTLIT, FLOATLIT, |, &, <, >, <=, >=, =, <>, +, -
+
+<term5> 					id, if, while, for, break, return, let, 
+							end, endif, else, enddo, then, do, to, ;, ), ], COMMA,
+							(, INTLIT, FLOATLIT, |, &, <, >, <=, >=, =, <>, +, -, *, /
+
+<op0> 						id, ( , FLOATLIT, INTLIT
+
+<op1>						id, ( , FLOATLIT, INTLIT
+
+<op2>				 		id, ( , FLOATLIT, INTLIT
+				
+<op3>						id, ( , FLOATLIT, INTLIT
+
+<const> 		 			id, if, while, for, break, return, let, 
+							end, endif, else, enddo, then, do, to, ;, ), ], COMMA,
+							(, INTLIT, FLOATLIT, |, &, <, >, <=, >=, =, <>, +, -, *, /
+
+<expr-list>					)
+
+<expr-list-tail>			)

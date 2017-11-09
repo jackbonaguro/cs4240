@@ -1,13 +1,14 @@
 package com.tiger.compiler;
 
 import com.tiger.compiler.scanner.DfaState;
+import com.tiger.compiler.parser.GrammarToken;
 
-public enum Token{
+public enum Token implements GrammarToken{
 	COMMA, COLON, SEMI, LPAREN, RPAREN, LBRACK, RBRACK, LBRACE, RBRACE, 
 	PERIOD, PLUS, MINUS, MULT, DIV, EQ, NEQ, LESSER, GREATER, LESSEREQ,
 	GREATEREQ, AND, OR, ASSIGN, ARRAY, RECORD, BREAK, DO, ELSE, END, FOR,
-	FUNC, IF, IN, LET, OF, THEN, TO, TYPE, VAR, WHILE, ENDIF, BEGIN,
-	ENDDO, ID, INTLIT, FLOATLIT, WHITESPACE, ERROR, COMMENT, EOF;
+	FUNC, IF, IN, LET, OF, THEN, TO, TYPE, VAR, WHILE, ENDIF, BEGIN, RETURN,
+	ENDDO, ID, INTLIT, FLOATLIT, INT, FLOAT, WHITESPACE, ERROR, COMMENT, EOF, NULL;
 
 	public String label;
 
@@ -128,6 +129,12 @@ public enum Token{
 			        return BEGIN;
 			case "enddo":
 			        return ENDDO;
+			case "int":
+					return INT;
+			case "float":
+					return FLOAT;
+			case "return":
+					return RETURN;
 			default:
 				return ID;
 		}
