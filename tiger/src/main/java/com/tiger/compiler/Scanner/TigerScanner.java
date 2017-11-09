@@ -149,6 +149,7 @@ public class TigerScanner {
 		}
 
 		TokenTuple return_token = new TokenTuple(validString, token);
+		System.out.println("return_token: " + return_token);
 		return return_token;
 	}
 }

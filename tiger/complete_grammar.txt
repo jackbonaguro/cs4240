@@ -32,7 +32,7 @@
 <id-list-tail> 			-> , <id-list>
 				-> NULL
 
-<optional-init>			-> := <const>
+<optional-init>			-> := <const>  
 <optional-init>			-> NULL
 
 --------------------------------------------------------------------------------------------------------------
@@ -58,7 +58,7 @@
 <stat-seq-tail>			-> <stat-seq>
 				-> NULL
 
-<stat> 				-> id <stat0>
+<stat> 				-> id <f-or-a-stat>
 <stat>				-> if <expr> then <stat-seq> <stat-seq-if-endif-tail>
 <stat>				-> while <expr> do <stat-seq> enddo;
 <stat>				-> for id := <expr> to <expr> do <stat-seq> enddo;
@@ -69,11 +69,17 @@
 <stat-seq-if-endif-tail>	-> endif
 				-> else <stat-seq> endif;
 
-<stat0>				-> <lvalue-tail> <stat1>
+<f-or-a-stat>			-> <lvalue-tail> := <rhs-assign> 
 				-> (<expr-list>);
 
-<stat1>				-> := <expr>;
-				-> id (<expr-list>);
+<rhs-assign>			-> id <f-or-e-stat>
+				-> <const>
+				-> (<expr>)
+
+<f-or-e-stat>			-> ( <expr-list> );
+				-> [ <expr> ] <operator> <expr>
+				-> .id <operator> <expr>
+
 
 <lvalue> 			-> id <lvalue-tail>
 
@@ -111,7 +117,7 @@
 <term4Prime>			-> <op3> <term5> <term4Prime>
 				-> NULL
 
-<term5> 			-> (<expr)
+<term5> 			-> (<expr>)
 				-> <const>
 				-> <lvalue>	
 

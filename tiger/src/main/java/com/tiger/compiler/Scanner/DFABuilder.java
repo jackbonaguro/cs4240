@@ -31,7 +31,7 @@ public class DFABuilder {
             String firstRow = scanner.nextLine();
             Scanner rowReader = new Scanner(firstRow).useDelimiter(",");
             characters = new ArrayList<>();
-            rowReader.next(); // not sure why I need to do this
+            //rowReader.next(); // not sure why I need to do this
             while(rowReader.hasNext()) {
                 String columnCategory = rowReader.next();
                 //System.out.println("columnCategory:" + columnCategory);
