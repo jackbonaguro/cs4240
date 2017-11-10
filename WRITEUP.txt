@@ -25,10 +25,13 @@ Output: In between two newlines, the name of the current semantic action.
 
 BUILD & RUN
 
-The project uses the maven management tool. To build it, navigate to the directory "cs4240/tiger" and use the command
+The project uses the maven management tool. Follow this guide to install:
+https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
+
+To build the project, navigate to the directory "tiger" and use the command
 
 	mvn package
 
-To run, navigate to the "tiger" directory (within the "main" directory) use the command
+To run, navigate to the "tiger" directory (within the top-level directory) and use the command
 	
 	java -cp target/tiger-1.0-SNAPSHOT.jar com.tiger.compiler.Comp <testfile>
