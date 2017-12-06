@@ -65,7 +65,6 @@ public class TigerScanner {
 
 	public TokenTuple next() throws RuntimeException {
 
-
 		String currentString = "";
 		DfaState curr_state = transitions.get(0);
 		DfaState last_state = transitions.get(0);
@@ -137,7 +136,9 @@ public class TigerScanner {
 					msg += charStream.get(i);
 				}
 				msg += "\""+validString+"\"";
+				System.out.println("Token causing exception: " + token);
 				throw new RuntimeException(msg);
+				
 			} else {
 				String msg = "Line "+this.line+": ";
 				for (int i = curr_pos - column + 1; i < curr_pos - 1; i++) {
