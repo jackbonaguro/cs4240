@@ -9,9 +9,17 @@ public class ParseTreeNode {
 
 	public GrammarToken grammarToken;
 
+    public ParseTreeNode(GrammarToken gt) {
+    	this.parent = null;
+   		this.grammarToken = gt;
+	    this.children = new ArrayList<ParseTreeNode>();
+    }
+
 	public ParseTreeNode(GrammarToken gt, ParseTreeNode p) {
 		this.grammarToken = gt;
 		this.parent = p;
 		this.children = new ArrayList<ParseTreeNode>();
 	}
+
+
 }
