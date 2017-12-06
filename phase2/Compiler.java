@@ -7,6 +7,9 @@ public class Compiler{
 	public static Scanner scan;
 	public static ArrayList<String> file;
 	public static ArrayList<IROperation> iros;
+	public static ArrayList<String> generated;
+
+	public static Allocation allocation;
 
 	public static void main(String[] args) {
 		try {
@@ -16,6 +19,9 @@ public class Compiler{
 		}
 		file = new ArrayList<String>();
 		iros = new ArrayList<IROperation>();
+		generated = new ArrayList<String>();
+
+		allocation = new Allocation(new ArrayList<String>(), 0);
 
 		//Split file into lines
 		while(scan.hasNextLine()) {
@@ -34,20 +40,72 @@ public class Compiler{
 				System.err.println(l + " could not be matched.");
 			}
 		}
+
+		//Get a list of variables for the allocator
+		for (IROperation iro: iros) {
+			if (iro instanceof IntListOperation) {
+				allocation.variables.addAll(((IntListOperation) iro).ints);
+			} else if (iro instanceof FloatListOperation) {
+				allocation.variables.addAll(((FloatListOperation) iro).floats);
+			}
+		}
+		System.out.println("\nVariables: "+allocation.variables);
+
+
+		//Now do code generation
+		for (IROperation iro: iros) {
+			generated.add(iro.generate(allocation));
+		}
 	}
 
 	public static IROperation matchOperation(String l) throws Exception {
-		//System.out.println(l);
 		IROperation iro;
 		//First check for labels
-		//System.out.println(l.substring(l.length() - 1, l.length()));
 		if (l.substring(l.length() - 1, l.length()).equals(":")) {
+			
+			/*	NOTE:	*/
+			//Since this just checks for end-line colon,
+			//it will also catch an empty int-list
+			// or float-list.
+			//Unclear how to resolve this.
+
 			iro = new LabelOperation(l.substring(0, l.length() - 1));
 			return iro;
 		}
-		//Otherwise split by arguments and find op name
 		else {
-			String[] line = l.split(",");
+			//Maybe it's an int/float list?
+			String[] line;
+			line = l.split(":");
+			//System.out.println(Arrays.toString(line));
+			for (String i: line) {
+				i = i.trim();
+			}
+			String[] list;
+			switch (line[0]) {
+				case "int-list":
+					//Split the list and add to ints
+					ArrayList<String> ints = new ArrayList<String>();
+					list = line[1].split(",");
+					for (String i: list) {
+						i = i.trim();
+						ints.add(i);
+					}
+					return new IntListOperation(ints);
+				case "float-list":
+					//System.out.println(line);
+					//Split the list and add to ints
+					ArrayList<String> floats = new ArrayList<String>();
+					list = line[1].split(",");
+					for (String i: list) {
+						i = i.trim();
+						floats.add(i);
+					}
+					return new FloatListOperation(floats);
+				//end switch
+			}
+
+			//Otherwise split by arguments and find op name
+			line = l.split(",");
 			//System.out.println(Arrays.toString(line));
 			for (String i: line) {
 				i = i.trim();

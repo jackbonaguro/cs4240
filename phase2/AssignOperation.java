@@ -6,4 +6,10 @@ public class AssignOperation implements IROperation {
 		this.op1 = op1;
 		this.op2 = op2;
 	}
+
+	public String generate(Allocation allocation) {
+		String result = "";
+		result += op1+":\t.word\t"+op2;
+		return result;
+	}
 }

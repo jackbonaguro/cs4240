@@ -1,7 +1,10 @@
-public class GotoOperation implements IROperation {
-	String op1;
-	public GotoOperation(String op1) {
-		this.op1 = op1;
+import java.util.ArrayList;
+
+public class IntListOperation implements IROperation {
+	public ArrayList<String> ints;
+
+	public IntListOperation(ArrayList<String> ints) {
+		this.ints = ints;
 	}
 	
 	public String generate(Allocation allocation) {
@@ -11,5 +14,9 @@ public class GotoOperation implements IROperation {
 		result += "";
 		result += allocation.generateStore(t, 2);*/
 		return result;
+	}
+
+	public String toString() {
+		return "IntList: "+ints;
 	}
 }

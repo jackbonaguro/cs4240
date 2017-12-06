@@ -1,7 +1,10 @@
-public class GotoOperation implements IROperation {
-	String op1;
-	public GotoOperation(String op1) {
-		this.op1 = op1;
+import java.util.ArrayList;
+
+public class FloatListOperation implements IROperation {
+	public ArrayList<String> floats;
+
+	public FloatListOperation(ArrayList<String> floats) {
+		this.floats = floats;
 	}
 	
 	public String generate(Allocation allocation) {

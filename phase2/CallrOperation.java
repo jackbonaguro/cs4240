@@ -9,4 +9,17 @@ public class CallrOperation implements IROperation {
 		this.retVal = retVal;
 		this.inputs = inputs;
 	}
+	
+	public String generate(Allocation allocation) {
+		String result = "";
+		/*result += allocation.generateLoad(op1, 0);
+		result += allocation.generateLoad(op2, 1);
+		result += "";
+		result += allocation.generateStore(t, 2);*/
+		return result;
+	}
+
+	public String toString() {
+		return "Callr: "+retVal+", "+func+", "+inputs;
+	}
 }
