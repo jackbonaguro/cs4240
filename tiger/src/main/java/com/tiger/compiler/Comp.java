@@ -3,8 +3,14 @@ package com.tiger.compiler;
 import java.io.*;
 import java.util.Scanner;
 
+
 import com.tiger.compiler.parser.TigerParser;
 import com.tiger.compiler.scanner.TigerScanner;
+
+import com.tiger.compiler.parser.ParseTreeNode;
+import com.tiger.compiler.scanner.DfaState;
+import static com.tiger.compiler.Token.*;
+import java.util.*;
 
 
 public class Comp {
@@ -16,7 +22,137 @@ public class Comp {
         TigerScanner scanner = new TigerScanner(filepath);
         TigerParser parser = new TigerParser(scanner);
         parser.parse();
+
+		// DfaState state = new DfaState(1);
+		
+        // demoTree();
     }
+
+    public static void demoTree() {
+    	Token token = Token.COMMA;
+		ParseTreeNode node = new ParseTreeNode(token);
+
+		ArrayList<ParseTreeNode> children = new ArrayList<ParseTreeNode>();
+		ParseTreeNode child1, child2, child3;
+		child1 = new ParseTreeNode(token, node);
+		child2 = new ParseTreeNode(token, node);
+		child3 = new ParseTreeNode(token, node);
+		children.add(child1);
+		children.add(child2);
+		children.add(child3);
+		node.children = children;
+
+		ArrayList<ParseTreeNode> grandChildren1 = new ArrayList<ParseTreeNode>();
+		ParseTreeNode gchild1;
+		gchild1 = new ParseTreeNode(token, child1);
+		grandChildren1.add(gchild1);
+		child1.children = grandChildren1;
+
+		ArrayList<ParseTreeNode> grandChildren2 = new ArrayList<ParseTreeNode>();
+		ParseTreeNode gchild2, gchild3;
+		gchild2 = new ParseTreeNode(token, child2);
+		gchild3 = new ParseTreeNode(token, child2);
+		grandChildren2.add(gchild2);
+		grandChildren2.add(gchild3);
+		child2.children = grandChildren2;
+
+		System.out.println("THIS IS THE TREE (in right->left order)");
+		printTree(node);
+    }
+
+
+    public static void printTree(ParseTreeNode root) {
+    	Stack<ParseTreeNode> stack = new Stack<ParseTreeNode>();
+    	Stack<ParseTreeNode> newStack = new Stack<ParseTreeNode>();
+
+    	stack.push(root);
+    	recurseTree(stack, newStack);
+    }
+
+    public static void recurseTree(Stack<ParseTreeNode> stack, Stack<ParseTreeNode> newStack) {
+    	// System.out.println("CURRENT STACK SIZE:\t" + stack.size());
+
+		// populate new stack
+		for (ParseTreeNode current : stack) {
+    		for (ParseTreeNode child : current.children) {
+			    newStack.push(child);
+		    }
+    	}
+			
+		// System.out.println("CURRENT NEWSTACK SIZE:\t" + newStack.size());
+		ParseTreeNode current;
+		ParseTreeNode parent;
+		System.out.print("(");
+
+		current = stack.pop();
+        parent = current.parent;
+   //      do {
+			// // print good stuff
+			// if (current.parent == null) { // root
+			// 	System.out.print("ROOT: " + current.grammarToken);
+
+			// } else {
+			// 	if (current.parent == parent) {
+			// 		System.out.print(" " + current.grammarToken);
+
+			// 	} else {
+			// 		parent = current.parent;
+			// 		System.out.print(" )( " + current.grammarToken);
+			// 	}
+			// }
+			// current = stack.pop();
+   //      } while (!stack.empty());
+
+        // make method
+
+        String line = "";
+        String printLine = stringifyTree(stack, current, parent, line);
+        System.out.print(printLine);
+
+
+        System.out.println(" )");
+
+   		populate(stack, newStack);
+
+    	if (!stack.empty()) {
+    		recurseTree(stack, newStack);
+    	}
+    }
+
+    public static String stringifyTree(Stack<ParseTreeNode> stack, ParseTreeNode current, ParseTreeNode parent, String line) {
+    	// print good stuff
+		if (current.parent == null) { // root
+			line = "ROOT: " + current.grammarToken;
+
+		} else {
+			if (current.parent == parent) {
+				line  = line + (" " + current.grammarToken);
+
+			} else {
+				parent = current.parent;
+				line = line + (" )( " + current.grammarToken);
+			}
+		}
+		if (!stack.empty()) {
+			current = stack.pop();
+			return stringifyTree(stack, current, parent, line);
+		}
+		return line;
+    }
+
+    public static Stack<ParseTreeNode> populate(Stack<ParseTreeNode> stack, Stack<ParseTreeNode> newStack) {
+    	// System.out.println("HERE ARE THE children:");
+    	// for (ParseTreeNode child: newStack) {
+    	// 	System.out.print(child.grammarToken);
+    	// }
+    	if (newStack.empty()) {
+    		return stack;
+    	}
+    	stack.push(newStack.pop());
+    	return populate(stack, newStack);
+    
+    }
+
 
 	// public static void oldMain(String[] args) throws IOException {
 	// 	String filepath = args[0];
