@@ -38,6 +38,10 @@ public class Compiler{
 						if (line.length == 3) {
 							//Regular Assign
 							iro = new AssignOperation(line[1],line[2]);
+						} else {
+							//Array Assign
+							iro = new ArrayAssignOperation(line[1],
+								line[2],line[3]);
 						}
 					break;
 				}
