@@ -3,8 +3,4 @@ public class GotoOperation implements IROperation {
 	public GotoOperation(String op1) {
 		this.op1 = op1;
 	}
-
-	public String getInstrs(){
-
-	}
 }
