@@ -67,22 +67,32 @@ public class Compiler{
 		}
 		System.out.println("\nVariables:\t"+allocation.variables);
 		System.out.println("\nArrays:\t"+allocation.arrays);
-
+		
+		//Generate the data section based on vars and arrays.
+		generated.add(".data\n");
+		for (String v: allocation.variables) {
+			generated.add(v+": .word 0\n");
+		}
+		for (ArrayTuple at: allocation.arrays) {
+			generated.add(at.name+": .space "+(4*at.size)+"\n"); //4 bytes/word
+		}
+		generated.add("\n.text\n");
 
 		//Now do code generation
 		for (IROperation iro: iros) {
 			//System.out.println(iro.getClass());
 			String g = iro.generate(allocation);
 			generated.add(g);
+		}
+		
+		for(String g: generated) {
 			System.out.println(g);
 		}
 	}
 
 	public static IROperation matchOperation(String l) throws Exception {
-		//System.out.println(l);
 		IROperation iro;
 		//First check for labels
-		//System.out.println(l.substring(l.length() - 1, l.length()));
 		if (l.substring(l.length() - 1, l.length()).equals(":")) {
 			iro = new LabelOperation(l.substring(0, l.length() - 1));
 			return iro;
@@ -92,9 +102,7 @@ public class Compiler{
 			String[] line = l.split(",");
 			//System.out.println(Arrays.toString(line));
 			for (String i: line) {
-				System.out.println("'"+i+"'");
 				i = i.trim();
-				System.out.println("'"+i+"'");
 			}
 			ArrayList<String> params = new ArrayList<String>();
 			switch (line[0]) {
