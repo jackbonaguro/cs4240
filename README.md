@@ -31,7 +31,6 @@ Output: In between two newlines, the name of the current semantic action.
 
 Naive Allocator - This allocation method relies on a limited number of available registers. Data is loaded into the registers and stored onto the stack on an instruction-by-instruction basis. The allocation scheme also takes care of the code generation. The compiler begins with a preprocessing sweep to initialize .word, .data, and .space variables, then performs the rest of the code generation in the .text space on a second sweep. The only IR operations not implemented are "call" and "callr". We chose to leave them unimplemented as the assignment said "We are doing only one function in terms of code generation – the main. No function calls
 are to be implemented".
-
 Output: unoptimized MIPS asm code
 
 BUILD & RUN
@@ -57,6 +56,15 @@ To run, use
 
 
 
+TESTS
+
+Files used to test back-end:
+	phase2/test1.ir 	phase2/test2.ir
+
+Use spin to test the output asm.
+
+
+ASSUMPTIONS MADE	
 
 On the backend, we encountered several inconsistencies within the project specification. As a result, we made a few assumptions, as follows:
 
@@ -91,3 +99,4 @@ On the backend, we encountered several inconsistencies within the project specif
 2. In the PDF's IR, there are labels int-list and float-list. We assumed these to be labels, as they ended with a colon and were not specified in the appendix. 		However, also not specified in the appendix was the string of variable names following int-list. Our implementation would throw an error if it recieved that 		line.
 
 3. SPIM reserves the label main as the entry point for the system. However, the label in some IR files is preceded by other operations. This leads us to believe 		that label should be changed to one that SPIM does not reserve, and that it should just be encountered in the natural flow of the program. Since label names 		are generated internally to the compiler, it will be fine to reserve the word 'main2' from being used as a label, just as the original 'main', and replace 			'main' with 'main2' when we encounter it. This enables us to keep main as the .globl entry point, and put it the main label at the beginning of generated code.
+
