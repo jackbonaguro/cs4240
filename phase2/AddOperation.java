@@ -9,7 +9,7 @@ public class AddOperation implements IROperation {
 	}
 
 	public String generate(Allocation allocation) {
-		String result = "";
+		String result = "#add\n";
 		result += allocation.generateLoad(op1, 1) + "\n";
 		result += "";
 		result += allocation.generateLoad(op2, 2) + "\n";

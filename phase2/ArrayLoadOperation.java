@@ -9,12 +9,15 @@ public class ArrayLoadOperation implements IROperation {
 	}
 
 	public String generate(Allocation allocation) {
-		String result = "";
+		String result = "#array_load\n";
 		result += allocation.generateAddress(arrName, 0) + "\n";
 		result += allocation.generateLoad(offset, 1) + "\n";
-		result += "add $t2, $t0, $t1\n";
-		result += "lw $t3, 0($t2)\n";
-		result += allocation.generateStore(x, 3) + "\n";
+		result += "addi $t2, $0, 4\n";
+		result += "mult $t1, $t2\n"; //Multiply offset by 4 for word-alignment
+		result += "mflo $t3\n";
+		result += "add $t4, $t0, $t3\n";
+		result += "lw $t5, 0($t4)\n";
+		result += allocation.generateStore(x, 5) + "\n";
 		return result;
 	}
 }

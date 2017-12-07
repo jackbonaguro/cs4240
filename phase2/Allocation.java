@@ -18,6 +18,21 @@ public class Allocation {
 		this.variables = variables;
 		this.arrays = arrays;
 	}
+	
+	public String generateLabel(String value) {
+		value = value.trim();
+		if(value.equals("main")) {
+			//SPIM reserves the label main as the entry point for the system.
+			//However, the label in some IR files is preceded by other operations.
+			//This leads us to believe that label should be changed to one that SPIM does not reserve,
+			//and that it should just be encountered in the natural flow of the program.
+			
+			//Since these values are generated internally to the compiler, it will be fine to
+			//reserve the word 'main2' from being used as a label, just as the original 'main'.
+			value = "main2";
+		}
+		return value;
+	}
 
 	public String generateAddress(String value, int num) {
 		return "la $t"+num+", "+value;
@@ -41,7 +56,7 @@ public class Allocation {
 			case Temp:
 				String n = value.substring(1,value.length());
 				int tempNum = Integer.parseInt(n);
-				return "sw $t"+num+", -"+tempNum+"($sp)";
+				return "sw $t"+num+", "+(4 * tempNum) +"($sp)";	//Word-aligned
 			default:
 				return "";
 		}
@@ -64,7 +79,7 @@ public class Allocation {
 				return "lw $t"+num+", "+value;
 			case Temp:
 				int tempNum = Integer.parseInt(value.substring(1,value.length()));
-				return "lw $t"+num+", -"+tempNum+"($sp)";
+				return "lw $t"+num+", "+ (4 * tempNum) +"($sp)";
 			case Literal:
 				return "addi $t"+num+", $0, "+value;
 			default:

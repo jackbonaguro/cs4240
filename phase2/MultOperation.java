@@ -9,11 +9,11 @@ public class MultOperation implements IROperation {
 	}
 
 	public String generate(Allocation allocation) {
-		String result = "";
+		String result = "#mult\n";
 		result += allocation.generateLoad(op1, 0) + "\n";
 		result += allocation.generateLoad(op2, 1) + "\n";
 		result += "mult $t0, $t1\n";
-		result += "addi $t2, $lo, 0\n";
+		result += "mflo $t2\n";
 		result += allocation.generateStore(t, 2) + "\n";
 		return result;
 	}
