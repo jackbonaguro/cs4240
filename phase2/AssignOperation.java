@@ -1,6 +1,6 @@
 public class AssignOperation implements IROperation {
-	String op1;
-	String op2;
+	public String op1;
+	public String op2;
 
 	public AssignOperation(String op1, String op2) {
 		this.op1 = op1;

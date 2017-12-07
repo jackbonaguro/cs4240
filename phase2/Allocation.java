@@ -8,11 +8,15 @@ public class Allocation {
 	}
 
 	public ArrayList<String> variables;
-	public int numTemps;
+	public ArrayList<ArrayTuple> arrays;
 
-	public Allocation(ArrayList<String> variables, int numTemps) {
+	public Allocation() {
+		this(new ArrayList<String>(), new ArrayList<ArrayTuple>());
+	}
+
+	public Allocation(ArrayList<String> variables, ArrayList<ArrayTuple> arrays) {
 		this.variables = variables;
-		this.numTemps = numTemps;
+		this.arrays = arrays;
 	}
 
 	public String generateAddress(String value, int num) {
@@ -20,21 +24,23 @@ public class Allocation {
 	}
 
 	public String generateStore(String value, int num) {
-		try {
+		//try {
 			RegType rt = this.getOperandType(value);
 			return this.generateStore(rt, value, num);
-		} catch (Exception e) {
+		/*} catch (Exception e) {
 			System.out.println("Bad Operand");
 			return "";
-		}
+		}*/
 	}
 
 	public String generateStore(RegType rt, String value, int num) {
+		value = value.trim();
 		switch (rt) {
 			case Variable:
 				return "sw $t"+num+", "+value;
 			case Temp:
-				int tempNum = Integer.parseInt(value.substring(1,value.length()));
+				String n = value.substring(1,value.length());
+				int tempNum = Integer.parseInt(n);
 				return "sw $t"+num+", -"+tempNum+"($sp)";
 			default:
 				return "";
@@ -42,16 +48,17 @@ public class Allocation {
 	}
 
 	public String generateLoad(String value, int num) {
-		try {
+		//try {
 			RegType rt = this.getOperandType(value);
 			return this.generateLoad(rt, value, num);
-		} catch (Exception e) {
+		/*} catch (Exception e) {
 			System.out.println("Bad Operand");
 			return "";
-		}
+		}*/
 	}
 
 	public String generateLoad(RegType rt, String value, int num) {
+		value = value.trim();
 		switch (rt) {
 			case Variable:
 				return "lw $t"+num+", "+value;
@@ -65,7 +72,8 @@ public class Allocation {
 		}
 	}
 
-	public RegType getOperandType(String o) throws Exception {
+	public RegType getOperandType(String o) {
+		o = o.trim();
 		//First look for variables
 		if (variables.contains(o)) {
 			return RegType.Variable;
@@ -86,16 +94,18 @@ public class Allocation {
 			if (o.substring(0,1).equals("t")) {
 				//Ex. t1, t2, ...
 				try {
-					Integer.parseInt(o.substring(1,o.length()));
+					String n = o.substring(1,o.length());
+					Integer.parseInt(n);
 					return RegType.Temp;
-				} catch (Exception e) {
+				} catch (NumberFormatException e) {
 					//Not a temp variable,
 					//Thus not any of the types
-					throw new Exception();
+					return null;
 				}
 			} else {
-				//Not any of the types
-				throw new Exception();
+				//Not any existing thing
+				//Must be a new variable
+				return null;
 			}
 		}
 	}

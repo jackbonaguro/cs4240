@@ -13,7 +13,7 @@ public class Compiler{
 
 	public static void main(String[] args) {
 		try {
-			scan = new Scanner(new File(args[0]));
+			scan = new Scanner(new File("test1.ir"));
 		} catch (FileNotFoundException fnfe) {
 			System.err.println("File Not Found");
 		}
@@ -21,7 +21,7 @@ public class Compiler{
 		iros = new ArrayList<IROperation>();
 		generated = new ArrayList<String>();
 
-		allocation = new Allocation(new ArrayList<String>(), 0);
+		allocation = new Allocation();
 
 		//Split file into lines
 		while(scan.hasNextLine()) {
@@ -43,72 +43,58 @@ public class Compiler{
 
 		//Get a list of variables for the allocator
 		for (IROperation iro: iros) {
-			if (iro instanceof IntListOperation) {
-				allocation.variables.addAll(((IntListOperation) iro).ints);
-			} else if (iro instanceof FloatListOperation) {
-				allocation.variables.addAll(((FloatListOperation) iro).floats);
+			if (iro instanceof AssignOperation) {
+				String op1 = ((AssignOperation) iro).op1;
+
+				if (allocation.getOperandType(op1) == null) {
+					//This means it wasn't in variables or a temp or literal
+					//So it must be a new variable name
+					allocation.variables.add(op1);
+				}
+			} else if (iro instanceof ArrayAssignOperation) {
+				String op1 = ((ArrayAssignOperation) iro).op1;
+				String op2 = ((ArrayAssignOperation) iro).op2;
+
+				if (allocation.getOperandType(op1) == null) {
+					//This means it wasn't in variables or a temp or literal
+					//So it must be a new variable name
+
+					//get the array's size
+					int size = Integer.parseInt(op2);
+					allocation.arrays.add(new ArrayTuple(op1, size));
+				}
 			}
 		}
-		System.out.println("\nVariables: "+allocation.variables);
+		System.out.println("\nVariables:\t"+allocation.variables);
+		System.out.println("\nArrays:\t"+allocation.arrays);
 
 
 		//Now do code generation
 		for (IROperation iro: iros) {
-			generated.add(iro.generate(allocation));
+			System.out.println(iro.getClass());
+			String g = iro.generate(allocation);
+			generated.add(g);
+			System.out.println(g);
 		}
 	}
 
 	public static IROperation matchOperation(String l) throws Exception {
+		//System.out.println(l);
 		IROperation iro;
 		//First check for labels
+		//System.out.println(l.substring(l.length() - 1, l.length()));
 		if (l.substring(l.length() - 1, l.length()).equals(":")) {
-			
-			/*	NOTE:	*/
-			//Since this just checks for end-line colon,
-			//it will also catch an empty int-list
-			// or float-list.
-			//Unclear how to resolve this.
-
 			iro = new LabelOperation(l.substring(0, l.length() - 1));
 			return iro;
 		}
+		//Otherwise split by arguments and find op name
 		else {
-			//Maybe it's an int/float list?
-			String[] line;
-			line = l.split(":");
+			String[] line = l.split(",");
 			//System.out.println(Arrays.toString(line));
 			for (String i: line) {
+				System.out.println("'"+i+"'");
 				i = i.trim();
-			}
-			String[] list;
-			switch (line[0]) {
-				case "int-list":
-					//Split the list and add to ints
-					ArrayList<String> ints = new ArrayList<String>();
-					list = line[1].split(",");
-					for (String i: list) {
-						i = i.trim();
-						ints.add(i);
-					}
-					return new IntListOperation(ints);
-				case "float-list":
-					//System.out.println(line);
-					//Split the list and add to ints
-					ArrayList<String> floats = new ArrayList<String>();
-					list = line[1].split(",");
-					for (String i: list) {
-						i = i.trim();
-						floats.add(i);
-					}
-					return new FloatListOperation(floats);
-				//end switch
-			}
-
-			//Otherwise split by arguments and find op name
-			line = l.split(",");
-			//System.out.println(Arrays.toString(line));
-			for (String i: line) {
-				i = i.trim();
+				System.out.println("'"+i+"'");
 			}
 			ArrayList<String> params = new ArrayList<String>();
 			switch (line[0]) {
@@ -116,11 +102,11 @@ public class Compiler{
 					if (line.length == 3 ||
 						(line.length == 4 && line[3].equals(""))) {
 						//Regular Assign
-						iro = new AssignOperation(line[1],line[2]);
+						iro = new AssignOperation(line[1].trim(),line[2].trim());
 					} else {
 						//Array Assign
-						iro = new ArrayAssignOperation(line[1],
-							line[2],line[3]);
+						iro = new ArrayAssignOperation(line[1].trim(),
+							line[2].trim(),line[3].trim());
 					}
 					break;
 				case "add":
