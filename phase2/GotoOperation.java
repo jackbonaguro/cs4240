@@ -5,11 +5,8 @@ public class GotoOperation implements IROperation {
 	}
 	
 	public String generate(Allocation allocation) {
-		String result = "";
-		// result += allocation.generateLoad(label, 0);
-		result += "";
-		// result += "jr $t0";
-		result += "j "+ label + "\n";
+		String result = "#goto\n";
+		result += "j "+ allocation.generateLabel(label) + "\n";
 		return result;
 	}
 }

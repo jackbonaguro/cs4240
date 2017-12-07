@@ -10,7 +10,7 @@ public class ArrayAssignOperation implements IROperation {
 	}
 
 	public String generate(Allocation allocation) {
-		String result = "";
+		String result = "#array_assign\n";
 		//load the array address
 		result += allocation.generateAddress(op1, 0) + "\n";
 		result += allocation.generateLoad(op3, 1) + "\n";
@@ -23,7 +23,7 @@ public class ArrayAssignOperation implements IROperation {
 		}
 		for (int i = 0; i < size; i++) {
 			//if (i == size - 1) {
-			result += "sw $t1, "+i+"($t0)\n";
+			result += "sw $t1, "+ (4 * i) +"($t0)\n";	//Word-aligned
 			//result += "addi $t0, $t0, 1\n";
 			/*} else {
 				result += op3+", ";

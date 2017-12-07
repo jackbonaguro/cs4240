@@ -19,46 +19,10 @@ public class BranchOperation implements IROperation {
 	// bne	$t0,$t1,target	#  branch to target if  $t0 <> $t1
 
 	public String generate(Allocation allocation) {
-		String op = cond.trim();
-		String result = "";
-		if (op.equals("<>")) {
-			result += allocation.generateLoad(y, 1) + "\n";
-			result += "";
-			result += allocation.generateLoad(z, 2) + "\n";
-			result += "bne $t0, $t1, " + label + "\n";
-			// result += allocation.generateStore(label, 0);
-		}
-		if (op.equals("==")) {
-			result += allocation.generateLoad(y, 1) + "\n";
-			result += "";
-			result += allocation.generateLoad(z, 2) + "\n";
-			result += "beq $t0, $t1, " + label + "\n";
-		}
-		if (op.equals("<=")) {
-			result += allocation.generateLoad(y, 1) + "\n";
-			result += "";
-			result += allocation.generateLoad(z, 2) + "\n";
-			result += "ble $t0, $t1, " + label + "\n";
-		}
-		if (op.equals(">=")) {
-			result += allocation.generateLoad(y, 1) + "\n";
-			result += "";
-			result += allocation.generateLoad(z, 2) + "\n";
-			result += "bge $t0, $t1, " + label + "\n";
-		}
-		if (op.equals(">")) {
-			result += allocation.generateLoad(y, 1) + "\n";
-			result += "";
-			result += allocation.generateLoad(z, 2) + "\n";
-			result += "bgt $t0, $t1, " + label + "\n";
-		}
-		if (op.equals("<")) {
-			result += allocation.generateLoad(y, 1) + "\n";
-			result += "";
-			result += allocation.generateLoad(z, 2) + "\n";
-			result += "blt $t0, $t1, " + label + "\n";
-		}
-
+		String result = "#branch\n";
+		result += allocation.generateLoad(y, 0) + "\n";
+		result += allocation.generateLoad(z, 1) + "\n";
+		result += "b"+cond+"\t$t0, $t1, "+allocation.generateLabel(label) + "\n";
 		return result;
 	}
 

@@ -14,7 +14,7 @@ public class Compiler{
 	public static void main(String[] args) {
 
 		try {
-			scan = new Scanner(new File("test1.ir"));
+			scan = new Scanner(new File(args[0]));
 		} catch (FileNotFoundException fnfe) {
 			System.err.println("File Not Found");
 		}
@@ -70,6 +70,7 @@ public class Compiler{
 		System.out.println("\nArrays:\t"+allocation.arrays);
 		
 		//Generate the data section based on vars and arrays.
+		generated.add(".globl main\n");
 		generated.add(".data\n");
 		for (String v: allocation.variables) {
 			generated.add(v+": .word 0\n");
@@ -78,6 +79,7 @@ public class Compiler{
 			generated.add(at.name+": .space "+(4*at.size)+"\n"); //4 bytes/word
 		}
 		generated.add("\n.text\n");
+		generated.add("main:\n");
 
 		//Now do code generation
 		for (IROperation iro: iros) {
@@ -86,9 +88,19 @@ public class Compiler{
 			generated.add(g);
 		}
 		
+		//Output to stdout and file
+		String out = "";
 		for(String g: generated) {
-			System.out.println(g);
-			
+			System.out.print(g);
+			out += g;
+		}
+		
+		try {
+			PrintWriter outFile = new PrintWriter(args[1]);
+			outFile.print(out);
+			outFile.close();
+		} catch (Exception e) {
+			System.out.println("Could not output file.");
 		}
 	}
 
