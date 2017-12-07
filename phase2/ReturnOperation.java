@@ -1,13 +1,11 @@
 public class ReturnOperation implements IROperation {
 	String x;
-	public ReturnOperation(String x) {
-		this.x =x; 
+	public ReturnOperation() {
 	}
 	
 	public String generate(Allocation allocation) {
 		String result = "";
-		result += allocation.generateLoad(x, 0);
-		result += "return $t0";
+		result += "return $ra";
 		return result;
 	}
 }

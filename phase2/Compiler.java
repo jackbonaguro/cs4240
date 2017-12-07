@@ -71,7 +71,7 @@ public class Compiler{
 
 		//Now do code generation
 		for (IROperation iro: iros) {
-			System.out.println(iro.getClass());
+			//System.out.println(iro.getClass());
 			String g = iro.generate(allocation);
 			generated.add(g);
 			System.out.println(g);
@@ -137,7 +137,7 @@ public class Compiler{
 					iro = new GotoOperation(line[1]);
 					break;
 				case "return":
-					iro = new ReturnOperation(line[1]);
+					iro = new ReturnOperation();
 					break;
 				case "call":
 					//gArrayList<String> params = new ArrayList<String>();

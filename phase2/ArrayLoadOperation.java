@@ -10,11 +10,11 @@ public class ArrayLoadOperation implements IROperation {
 
 	public String generate(Allocation allocation) {
 		String result = "";
-		result += allocation.generateAddress(arrName, 0);
-		result += allocation.generateLoad(offset, 1);
-		result += "add $t2, $t0, $t1";
-		result += "lw $t3, 0($t2)";
-		result += allocation.generateStore(x, 3);
+		result += allocation.generateAddress(arrName, 0) + "\n";
+		result += allocation.generateLoad(offset, 1) + "\n";
+		result += "add $t2, $t0, $t1\n";
+		result += "lw $t3, 0($t2)\n";
+		result += allocation.generateStore(x, 3) + "\n";
 		return result;
 	}
 }

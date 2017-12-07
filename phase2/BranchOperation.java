@@ -25,38 +25,38 @@ public class BranchOperation implements IROperation {
 			result += allocation.generateLoad(y, 1);
 			result += "";
 			result += allocation.generateLoad(z, 2);
-			result += "bne $t0, $t1, " + lable;
+			result += "bne $t0, $t1, " + label;
 			// result += allocation.generateStore(label, 0);
 		}
 		if (op.equals("==")) {
 			result += allocation.generateLoad(y, 1);
 			result += "";
 			result += allocation.generateLoad(z, 2);
-			result += "beq $t0, $t1, " + lable;
+			result += "beq $t0, $t1, " + label;
 		}
 		if (op.equals("<=")) {
 			result += allocation.generateLoad(y, 1);
 			result += "";
 			result += allocation.generateLoad(z, 2);
-			result += "ble $t0, $t1, " + lable;
+			result += "ble $t0, $t1, " + label;
 		}
 		if (op.equals(">=")) {
 			result += allocation.generateLoad(y, 1);
 			result += "";
 			result += allocation.generateLoad(z, 2);
-			result += "bge $t0, $t1, " + lable;
+			result += "bge $t0, $t1, " + label;
 		}
 		if (op.equals(">")) {
 			result += allocation.generateLoad(y, 1);
 			result += "";
 			result += allocation.generateLoad(z, 2);
-			result += "bgt $t0, $t1, " + lable;
+			result += "bgt $t0, $t1, " + label;
 		}
 		if (op.equals("<")) {
 			result += allocation.generateLoad(y, 1);
 			result += "";
 			result += allocation.generateLoad(z, 2);
-			result += "blt $t0, $t1, " + lable;
+			result += "blt $t0, $t1, " + label;
 		}
 
 		return result;
