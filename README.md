@@ -13,7 +13,11 @@ The Identifier Table object is backed by a hashmap of int keys and IdentifierTab
 
 Types are referenced on a TypeTable, which is a hashmap that stores a TypeTableEntry and uses the TypeTableEntry's hashcode as a key.
 
-The back-end is a monolithic implementation of a naive allocation scheme. Data structures exist for each of the Tiger IR's operations and helper functions exist for data allocation. These both serve to help produce MIPS code. All of the back-end components are stored in the same directory.
+The back-end is a monolithic implementation of a naive allocation scheme. Data structures exist for each of the Tiger IR's operations and helper functions exist for data allocation. These both serve to help produce MIPS code. 
+
+The back-end's helper functions come from a class called "Allocation." Allocation creates certain enum types (Variable, Temp, and Literal) which correspond to the data types that will be provided by the IR. It contains a function for determining an operand's type, as well as functions for generating code for storing values to memory and loading words into registers, and a function for generating a function specifically handling the MIPS code for loading an address.
+
+All of the back-end components are stored in the same directory.
 
 WORKING COMPONENTS
 
@@ -25,7 +29,7 @@ Output: Every step outputs the full parse stack.
 Semantic Analyzer - In its run, the parser may encounter a semantic action (prefixed with # in the grammar csv). In this case it hands over control to the Analyzer. The analyzer utilizes the current state of the parser as well and executes the semantic action as specified in a function. So far we've implemented basic declaration (adding to the symbol table [identifier table]) and assignment (basic type checking). These will depend on the parse tree, which has not yet been fully implemented.
 Output: In between two newlines, the name of the current semantic action.
 
-Naive Allocator - This allocation method relies on a limited number of available registers. Data is loaded into the registers and stored onto the stack on an instruction-by-instruction basis. The allocation scheme also takes care of the code generation. The compiler begins with a preprocessing sweep to initialize .word, .data, and .space variables, then performs the rest of the code generation in the .text space on a second sweep. 
+Naive Allocator - This allocation method relies on a limited number of available registers. Data is loaded into the registers and stored onto the stack on an instruction-by-instruction basis. The allocation scheme also takes care of the code generation. The compiler begins with a preprocessing sweep to initialize .word, .data, and .space variables, then performs the rest of the code generation in the .text space on a second sweep. The only IR operations not working are "call" and "callr."
 Output: unoptimized MIPS asm code
 
 BUILD & RUN
