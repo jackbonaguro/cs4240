@@ -22,41 +22,41 @@ public class BranchOperation implements IROperation {
 		String op = cond.trim();
 		String result = "";
 		if (op.equals("<>")) {
-			result += allocation.generateLoad(y, 1);
+			result += allocation.generateLoad(y, 1) + "\n";
 			result += "";
-			result += allocation.generateLoad(z, 2);
-			result += "bne $t0, $t1, " + label;
+			result += allocation.generateLoad(z, 2) + "\n";
+			result += "bne $t0, $t1, " + label + "\n";
 			// result += allocation.generateStore(label, 0);
 		}
 		if (op.equals("==")) {
-			result += allocation.generateLoad(y, 1);
+			result += allocation.generateLoad(y, 1) + "\n";
 			result += "";
-			result += allocation.generateLoad(z, 2);
-			result += "beq $t0, $t1, " + label;
+			result += allocation.generateLoad(z, 2) + "\n";
+			result += "beq $t0, $t1, " + label + "\n";
 		}
 		if (op.equals("<=")) {
-			result += allocation.generateLoad(y, 1);
+			result += allocation.generateLoad(y, 1) + "\n";
 			result += "";
-			result += allocation.generateLoad(z, 2);
-			result += "ble $t0, $t1, " + label;
+			result += allocation.generateLoad(z, 2) + "\n";
+			result += "ble $t0, $t1, " + label + "\n";
 		}
 		if (op.equals(">=")) {
-			result += allocation.generateLoad(y, 1);
+			result += allocation.generateLoad(y, 1) + "\n";
 			result += "";
-			result += allocation.generateLoad(z, 2);
-			result += "bge $t0, $t1, " + label;
+			result += allocation.generateLoad(z, 2) + "\n";
+			result += "bge $t0, $t1, " + label + "\n";
 		}
 		if (op.equals(">")) {
-			result += allocation.generateLoad(y, 1);
+			result += allocation.generateLoad(y, 1) + "\n";
 			result += "";
-			result += allocation.generateLoad(z, 2);
-			result += "bgt $t0, $t1, " + label;
+			result += allocation.generateLoad(z, 2) + "\n";
+			result += "bgt $t0, $t1, " + label + "\n";
 		}
 		if (op.equals("<")) {
-			result += allocation.generateLoad(y, 1);
+			result += allocation.generateLoad(y, 1) + "\n";
 			result += "";
-			result += allocation.generateLoad(z, 2);
-			result += "blt $t0, $t1, " + label;
+			result += allocation.generateLoad(z, 2) + "\n";
+			result += "blt $t0, $t1, " + label + "\n";
 		}
 
 		return result;

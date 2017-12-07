@@ -12,6 +12,6 @@ public class LabelOperation implements IROperation {
 	}
 
 	public String toString() {
-		return "Label: "+name;
+		return "Label: "+name + "\n";
 	}
 }

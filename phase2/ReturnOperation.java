@@ -5,7 +5,7 @@ public class ReturnOperation implements IROperation {
 	
 	public String generate(Allocation allocation) {
 		String result = "";
-		result += "return $ra";
+		result += "return $ra" + "\n";
 		return result;
 	}
 }

@@ -9,7 +9,7 @@ public class GotoOperation implements IROperation {
 		// result += allocation.generateLoad(label, 0);
 		result += "";
 		// result += "jr $t0";
-		result += "j lable";
+		result += "j label" + "\n";
 		return result;
 	}
 }
