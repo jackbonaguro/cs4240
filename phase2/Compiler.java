@@ -15,11 +15,11 @@ public class Compiler{
 
 	public static void main(String[] args) {
 
-		try {
-			Writer writer = new BufferedWriter(new FileWriter("generatedMips"));
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+		// try {
+		// 	Writer writer = new BufferedWriter(new FileWriter("generatedMips"));
+		// } catch (Exception e) {
+		// 	System.out.println(e);
+		// }
 
 		try {
 			scan = new Scanner(new File("test1.ir"));
@@ -96,10 +96,10 @@ public class Compiler{
 		
 		for(String g: generated) {
 			System.out.println(g);
-			writer.write(g);
+			// writer.write(g);
 			
 		}
-		writer.close();
+		// writer.close();
 	}
 
 	public static IROperation matchOperation(String l) throws Exception {
