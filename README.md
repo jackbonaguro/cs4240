@@ -37,12 +37,18 @@ BUILD & RUN
 The front end uses the maven management tool. Follow this guide to install:
 https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
 
-To build the front end, navigate to the directory "tiger" and use the command
+To build the front end, navigate to the directory "tiger" (within the top-level directory) and use the command
 
 	mvn package
 
-To run, navigate to the "tiger" directory (within the top-level directory) and use the command
+To run, use the command
 	
 	java -cp target/tiger-1.0-SNAPSHOT.jar com.tiger.compiler.Comp <testfile>
 
-The backend is contained in the "phase2" directory. 
+The backend is contained in the "phase2" directory. To compile, use
+
+	<BACK-END_COMPILE_COMMAND>
+
+To run, use 
+
+	<BACK-END_RUN_COMMAND>
