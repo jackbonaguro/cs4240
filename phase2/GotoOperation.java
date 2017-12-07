@@ -1,15 +1,15 @@
 public class GotoOperation implements IROperation {
-	String op1;
-	public GotoOperation(String op1) {
-		this.op1 = op1;
+	String label;
+	public GotoOperation(String label) {
+		this.label = label;
 	}
 	
 	public String generate(Allocation allocation) {
 		String result = "";
-		/*result += allocation.generateLoad(op1, 0);
-		result += allocation.generateLoad(op2, 1);
+		// result += allocation.generateLoad(label, 0);
 		result += "";
-		result += allocation.generateStore(t, 2);*/
+		// result += "jr $t0";
+		result += "j lable";
 		return result;
 	}
 }

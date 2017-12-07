@@ -6,10 +6,8 @@ public class ReturnOperation implements IROperation {
 	
 	public String generate(Allocation allocation) {
 		String result = "";
-		/*result += allocation.generateLoad(op1, 0);
-		result += allocation.generateLoad(op2, 1);
-		result += "";
-		result += allocation.generateStore(t, 2);*/
+		result += allocation.generateLoad(x, 0);
+		result += "return $t0";
 		return result;
 	}
 }

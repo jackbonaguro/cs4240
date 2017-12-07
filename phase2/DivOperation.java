@@ -10,10 +10,12 @@ public class DivOperation implements IROperation {
 	
 	public String generate(Allocation allocation) {
 		String result = "";
-		/*result += allocation.generateLoad(op1, 0);
-		result += allocation.generateLoad(op2, 1);
+		result += allocation.generateLoad(op1, 1);
 		result += "";
-		result += allocation.generateStore(t, 2);*/
+		result += allocation.generateLoad(op2, 2);
+		result += "div $t1, $t2";
+		result += "addi $t0, $lo, 0";
+		result += allocation.generateStore(t, 0);
 		return result;
 	}
 }
