@@ -10,7 +10,8 @@ public class AssignOperation implements IROperation {
 	public String generate(Allocation allocation) {
 		// TODO: rework
 		String result = "";
-		result += op1+":\t.word\t"+op2;
+		result += allocation.generateLoad(op2, 0) + "\n";
+		result += allocation.generateStore(op1, 0) + "\n";
 		return result;
 	}
 }

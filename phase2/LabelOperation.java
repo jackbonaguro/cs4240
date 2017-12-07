@@ -7,7 +7,10 @@ public class LabelOperation implements IROperation {
 	
 	public String generate(Allocation allocation) {
 		String result = "";
-		result += name + ":";
+		if (name.equals("main")) {
+			result += ".global\n";
+		}
+		result += name + ":\n";
 		return result;
 	}
 

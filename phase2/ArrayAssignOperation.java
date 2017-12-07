@@ -11,20 +11,23 @@ public class ArrayAssignOperation implements IROperation {
 
 	public String generate(Allocation allocation) {
 		String result = "";
-		result += op1+":\t.word\t";
-
+		//load the array address
+		result += allocation.generateAddress(op1, 0) + "\n";
+		result += allocation.generateLoad(op3, 1) + "\n";
+		
 		int size = 0;
 		try {
-			size = Integer.parseInt(op1);
+			size = Integer.parseInt(op2);
 		} catch (Exception e) {
 			return "";
 		}
 		for (int i = 0; i < size; i++) {
-			if (i == size - 1) {
-				result += op3;
-			} else {
+			//if (i == size - 1) {
+			result += "sw $t1, "+i+"($t0)\n";
+			//result += "addi $t0, $t0, 1\n";
+			/*} else {
 				result += op3+", ";
-			}
+			}*/
 		}
 		return result;
 	}
